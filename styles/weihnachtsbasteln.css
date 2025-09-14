@@ -1,0 +1,29 @@
+.ueber-uns {
+  padding: 60px 0;
+  text-align: center;
+  background: var(--bg);
+}
+
+.ueber-uns h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.ueber-uns p {
+  margin: 0 0 16px;
+  line-height: 1.7;
+  color: var(--fg);
+}
+
+.ueber-uns strong {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+.about-image img {
+  width: 700px;         /* Skalierung */
+  height: auto;
+  border-radius: var(--radius);
+  object-fit: cover;    /* schneidet Überflüssiges ab */
+}

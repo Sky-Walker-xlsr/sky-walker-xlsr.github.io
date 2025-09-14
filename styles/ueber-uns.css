@@ -1,0 +1,81 @@
+/* Über uns Seite */
+.ueber-uns {
+  padding: 60px 0;
+  background: var(--bg);
+  text-align: center;          /* Alles mittig */
+}
+
+.ueber-uns h1 {
+  font-size: 2.2rem;
+  margin-bottom: 20px;
+  color: var(--fg);
+  font-weight: 700;
+}
+
+.ueber-uns p {
+  margin: 0 auto 16px;         /* auto -> mittig zentriert */
+  line-height: 1.7;
+  color: var(--fg);
+  max-width: 65ch;             /* Lesefreundliche Breite */
+}
+
+.ueber-uns strong {
+  color: var(--brand);
+  font-weight: 600;
+}
+
+/* Bildbereich */
+.about-image {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.about-image img {
+  max-width: 300px;
+  height: auto;
+  border-radius: var(--radius);
+  object-fit: contain;
+}
+
+/* Button */
+.ueber-uns .button {
+  margin-top: 24px;
+  display: inline-block;
+}
+
+/* Spacer für Abstände */
+.spacer {
+  height: 40px;   /* Höhe frei anpassbar */
+}
+
+.ueber-uns p {
+  margin: 0 0 16px;
+  line-height: 1.7;
+  color: var(--fg);
+  max-width: 100%; /* keine künstliche Begrenzung */
+}
+
+
+/* == Slideshow */ 
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  margin: 2rem auto;
+  border-radius: 12px;
+
+}
+
+.slideshow-track {
+  display: flex;
+}
+
+.slideshow-track img {
+  width: 100%;
+  height: 400px;       /* feste Höhe, damit es nicht zu lang wird */
+  object-fit: cover;   /* beschneidet statt zu verzerren */
+  flex-shrink: 0;
+}

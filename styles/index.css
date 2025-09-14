@@ -1,0 +1,131 @@
+/* Hero Section */
+.hero {
+  background: var(--header-footer);
+  padding: 80px 0 60px;
+  text-align: center;
+}
+
+.hero-text h1 {
+  font-size: clamp(32px, 5vw, 64px);
+  margin: 0 0 12px;
+  color: var(--fg);
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.2;
+  white-space: normal; /* Standard */
+}
+
+@media (min-width: 1000px) {
+  .hero-text h1 {
+    white-space: nowrap; /* ab Desktop keine Umbrüche */
+  }
+}
+
+
+
+.hero h2 { font-size: 1.5rem; font-weight: 500; margin: 0; color: var(--muted); }
+.hero p {
+  max-width: 60ch;
+  margin: 0 auto;
+  color: var(--fg);
+  line-height: 1.6;
+}
+
+.hero-cta { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
+
+/* Events Section */
+.events { padding: 60px 0; }
+.events h2 { text-align: center; margin-bottom: 30px; }
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.event-card {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.event-card h3 { margin: 0; color: var(--brand); }
+.event-card p { margin: 0; color: var(--fg); }
+
+/* About Section */
+.about { padding: 60px 0; }
+.about-inner {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.about-text {
+  flex: 1;
+  max-width: clamp(280px, 40%, 460px); /* skaliert sauber */
+  line-height: 1.6;
+}
+
+.about-image {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.about-image img {
+  width: 300px;
+  height: 300px;
+  object-position: bottom;
+  border-radius: var(--radius);
+  object-fit: cover;
+}
+
+/* CTA (Interessiert?) */
+.cta {
+  position: relative;
+  background: var(--header-footer);
+  padding: 120px 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* Großes Logo im Hintergrund */
+.cta-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1200px;       /* richtig groß auf Desktop */
+  max-width: 95vw;     /* auf kleineren Screens beschränkt */
+  z-index: 0;
+  pointer-events: none; /* keine Klicks blockieren */
+}
+
+/* Weißer Container */
+.cta-overlay {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.80); /* hier geändert */
+  display: inline-block;
+  padding: 40px 60px;
+  border-radius: var(--radius);
+}
+
+.cta h2 {
+  margin: 0 0 20px;
+  font-size: 2.2rem;
+  color: var(--brand);
+}
+
+.spacer {
+  height: 40px;   /* Abstand in px – anpassen nach Bedarf */
+}
+
+
+
+
+

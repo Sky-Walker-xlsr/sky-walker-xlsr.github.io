@@ -1,0 +1,73 @@
+.vorstand {
+  padding: 60px 0;
+  background: var(--bg);
+  text-align: center;
+}
+
+.vorstand h1 {
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: var(--fg);
+}
+
+.vorstand-image img {
+  max-width: 500px;
+  width: 100%;
+  border-radius: var(--radius);
+  margin: 0 auto 30px;
+}
+
+.vorstand-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  justify-content: center;
+  text-align: left;
+  max-width: 700px;
+  margin: 0 auto 30px;
+}
+
+.vorstand-grid p {
+  margin: 0 0 14px;
+  line-height: 1.6;
+}
+
+.intro {
+  max-width: 80ch;
+  margin: 30px auto;
+  line-height: 1.7;
+  color: var(--fg);
+  font-size: 1rem;
+}
+
+@media (max-width: 800px) {
+  .vorstand-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+
+/* == Slideshow */ 
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  overflow: hidden;
+  margin: 2rem auto;
+  border-radius: 12px;
+
+}
+
+.slideshow-track {
+  display: flex;
+}
+
+.slideshow-track img {
+  width: 100%;
+  height: 400px;       /* feste Höhe, damit es nicht zu lang wird */
+  object-fit: cover;   /* beschneidet statt zu verzerren */
+  object-position: top;
+  flex-shrink: 0;
+}
