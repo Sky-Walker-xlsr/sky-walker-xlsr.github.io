@@ -125,14 +125,19 @@
   height: 40px;   /* Abstand in px – anpassen nach Bedarf */
 }
 
+/* index.css */
 .button-center {
-  text-align: center;   /* Zentriert den Inhalt */
-  margin-top: 2rem;     /* etwas Abstand nach oben */
+  display: flex;          /* enthält das Kind als Flex-Item */
+  justify-content: center;/* zentriert horizontal */
+  margin-top: 2rem;
 }
 
 .button-center .button {
-  display: inline-block; /* Button bleibt inline, aber wird durch text-align mittig */
+  float: none;            /* falls irgendwo float gesetzt wäre */
+  display: inline-block;  /* ok, kann auch weggelassen werden */
 }
+
+
 
 
 
