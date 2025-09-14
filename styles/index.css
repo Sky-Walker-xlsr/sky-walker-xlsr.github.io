@@ -125,6 +125,11 @@
   height: 40px;   /* Abstand in px – anpassen nach Bedarf */
 }
 
+.button-center {
+  text-align: center;
+  margin-top: 1rem; /* optional etwas Abstand */
+}
+
 
 
 
