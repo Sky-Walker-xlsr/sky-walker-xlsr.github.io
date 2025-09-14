@@ -126,9 +126,15 @@
 }
 
 .button-center {
-  text-align: center;
-  margin-top: 1rem; /* optional etwas Abstand */
+  text-align: center;   /* Zentriert den Inhalt */
+  margin-top: 2rem;     /* etwas Abstand nach oben */
 }
+
+.button-center .button {
+  display: inline-block; /* Button bleibt inline, aber wird durch text-align mittig */
+}
+
+
 
 
 
