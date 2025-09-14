@@ -16,19 +16,11 @@
 }
 
 @media (min-width: 1000px) {
-  .hero-text h1 {
-    white-space: nowrap; /* ab Desktop keine Umbrüche */
-  }
+  .hero-text h1 { white-space: nowrap; }
 }
 
 .hero h2 { font-size: 1.5rem; font-weight: 500; margin: 0; color: var(--muted); }
-.hero p {
-  max-width: 60ch;
-  margin: 0 auto;
-  color: var(--fg);
-  line-height: 1.6;
-}
-
+.hero p { max-width: 60ch; margin: 0 auto; color: var(--fg); line-height: 1.6; }
 .hero-cta { display: flex; gap: 12px; margin-top: 20px; justify-content: center; }
 
 /* Events Section */
@@ -55,77 +47,29 @@
 
 /* About Section */
 .about { padding: 60px 0; }
-.about-inner {
-  display: flex;
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.about-text {
-  flex: 1;
-  max-width: clamp(280px, 40%, 460px); /* skaliert sauber */
-  line-height: 1.6;
-}
-
-.about-image {
-  flex: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.about-image img {
-  width: 300px;
-  height: 300px;
-  object-position: bottom;
-  border-radius: var(--radius);
-  object-fit: cover;
-}
+.about-inner { display: flex; gap: 40px; align-items: flex-start; justify-content: center; }
+.about-text { flex: 1; max-width: clamp(280px, 40%, 460px); line-height: 1.6; }
+.about-image { flex: 1; display: flex; justify-content: flex-end; }
+.about-image img { width: 300px; height: 300px; object-position: bottom; border-radius: var(--radius); object-fit: cover; }
 
 /* CTA (Interessiert?) */
-.cta {
-  position: relative;
-  background: var(--header-footer);
-  padding: 120px 0;
-  text-align: center;
-  overflow: hidden;
-}
+.cta { position: relative; background: var(--header-footer); padding: 120px 0; text-align: center; overflow: hidden; }
+.cta-bg { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 1200px; max-width: 95vw; z-index: 0; pointer-events: none; }
+.cta-overlay { position: relative; z-index: 1; background: rgba(255,255,255,.80); display: inline-block; padding: 40px 60px; border-radius: var(--radius); }
+.cta h2 { margin: 0 0 20px; font-size: 2.2rem; color: var(--brand); }
 
-/* Großes Logo im Hintergrund */
-.cta-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 1200px;       /* richtig groß auf Desktop */
-  max-width: 95vw;     /* auf kleineren Screens beschränkt */
-  z-index: 0;
-  pointer-events: none; /* keine Klicks blockieren */
-}
+.spacer { height: 40px; }
 
-/* Weißer Container */
-.cta-overlay {
-  position: relative;
-  z-index: 1;
-  background: rgba(255, 255, 255, 0.80); /* hier geändert */
-  display: inline-block;
-  padding: 40px 60px;
-  border-radius: var(--radius);
-}
-
-.cta h2 {
-  margin: 0 0 20px;
-  font-size: 2.2rem;
-  color: var(--brand);
-}
-
-.spacer {
-  height: 40px;   /* Abstand in px – anpassen nach Bedarf */
-}
-
-/* Button mittig nur in Events-Section */
-.events .container > .button {
+/* Button mittig unter der Events-Section – robust (mit oder ohne Wrapper) */
+.events .container > .button,
+.events .container .button-center .button {
   display: block;
-  margin: 2rem auto 0; /* oben Abstand, dann links/rechts auto = Mitte */
-  width: fit-content;  /* nur so breit wie nötig */
+  margin: 2rem auto 0;   /* Mitte */
+  width: fit-content;    /* nur so breit wie nötig */
+  float: none;
+}
+
+/* Falls der Wrapper existiert, stelle sicher, dass er nicht schmaler ist */
+.events .container .button-center {
+  width: 100%;
 }
