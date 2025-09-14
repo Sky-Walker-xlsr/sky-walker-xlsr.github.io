@@ -137,6 +137,12 @@
   display: inline-block;  /* ok, kann auch weggelassen werden */
 }
 
+.events .container > .button {
+  display: block;
+  margin: 2rem auto 0; /* oben Abstand, dann links/rechts auto = Mitte */
+  width: fit-content;  /* nur so breit wie nötig */
+}
+
 
 
 
