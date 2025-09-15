@@ -1,146 +1,188 @@
 <!doctype html>
 <html lang="de">
-
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Vorstand – Frauenverein Sarmenstorf</title>
-    <link rel="stylesheet" href="./styles/base.css" />
-    <link rel="stylesheet" href="./styles/vorstand.css" />
-    <style>
-        .slideshow-container {
-            overflow: hidden;
-            width: 100%;
-        }
-
-        .slideshow-track {
-            display: flex;
-            width: 100%;
-        }
-
-        .slideshow-track img {
-            width: 100%;
-            flex: 0 0 100%;
-            display: block;
-        }
-    </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vorstand – Frauenverein Sarmenstorf</title>
+  <link rel="stylesheet" href="./styles/base.css" />
+  <link rel="stylesheet" href="./styles/vorstand.css" />
+  <style>
+    .slideshow-container { overflow: hidden; width: 100%; }
+    .slideshow-track { display: flex; width: 100%; }
+    .slideshow-track img { width: 100%; flex: 0 0 100%; display: block; }
+  </style>
 </head>
-
 <body>
 
-    <!-- HEADER -->
-    <header class="site-header">
-        <div class="container header-bar">
-            <a class="brand-logo" href="./index.html">
-                <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
-            </a>
-            <nav class="nav">
-                <ul>
-                    <li><a href="./index.html">Startseite</a></li>
-                    <li><a href="./ueber-uns.html">Über uns</a></li>
-                    <li class="has-sub">
-                        <a href="./anlaesse.html">Anlässe <span class="caret">▾</span></a>
-                        <ul class="sub">
-                            <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
-                            <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
-                            <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./vorstand.html">Vorstand</a></li>
-                    <li><a href="./adventsfenster.html">Adventsfenster</a></li>
-                    <li><a href="./kontakt.html">Kontakt</a></li>
-                </ul>
-            </nav>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container header-bar">
+      <a class="brand-logo" href="./index.html">
+        <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
+      </a>
+
+      <!-- Desktop-Navi -->
+      <nav class="nav desktop-nav">
+        <ul>
+          <li><a href="./index.html">Startseite</a></li>
+          <li><a href="./ueber-uns.html">Über uns</a></li>
+          <li class="has-sub">
+            <a href="./anlaesse.html">Anlässe <span class="caret">▾</span></a>
+            <ul class="sub">
+              <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
+              <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
+              <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
+            </ul>
+          </li>
+          <li><a href="./vorstand.html" aria-current="page">Vorstand</a></li>
+          <li><a href="./adventsfenster.html">Adventsfenster</a></li>
+          <li><a href="./kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <!-- Mobile Toggle -->
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen"
+              aria-controls="mobileOverlay" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Fullscreen Mobile Overlay -->
+  <nav class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+    <button class="overlay-close" id="overlayClose" type="button" aria-label="Menü schliessen">×</button>
+    <ul>
+      <li><a href="./index.html">Startseite</a></li>
+      <li><a href="./ueber-uns.html">Über uns</a></li>
+      <li>
+        <a href="./anlaesse.html">Anlässe</a>
+        <ul class="overlay-sub">
+          <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
+          <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
+          <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
+        </ul>
+      </li>
+      <li><a href="./vorstand.html" aria-current="page">Vorstand</a></li>
+      <li><a href="./adventsfenster.html">Adventsfenster</a></li>
+      <li><a href="./kontakt.html">Kontakt</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="vorstand">
+      <div class="container text-center">
+        <h1>Vorstand</h1>
+
+        <!-- Slideshow -->
+        <div class="slideshow-container">
+          <div class="slideshow-track" id="vs-track"></div>
         </div>
-    </header>
 
-    <main>
-        <section class="vorstand">
-            <div class="container text-center">
-                <h1>Vorstand</h1>
-
-                <!-- Slideshow -->
-                <div class="slideshow-container">
-                    <div class="slideshow-track" id="vs-track"></div>
-                </div>
-
-                <div class="vorstand-grid">
-                    <div>
-                        <p><strong>Präsidentin:</strong><br />Daniela Strebel</p>
-                        <p><strong>Kassierin:</strong><br />Susi Tschumi</p>
-                        <p><strong>Aktuarin:</strong><br />(Conni Hubel)</p>
-                    </div>
-                    <div>
-                        <p><strong>Vizepräsidentin, Anlässe, Freizeitplausch:</strong><br />Nicole Salm</p>
-                        <p><strong>Anlässe:</strong><br />Andrea Zuber</p>
-                    </div>
-                </div>
-
-                <p class="intro">
-                    Ideen, Anregungen oder Wünsche können jederzeit gerne an uns gerichtet werden.<br />
-                    Wir versuchen diese umzusetzen in der Gestaltung des kommenden Jahresprogrammes.<br />
-                    Zusammen mit euch allen wünschen wir uns unvergessliche Stunden.
-                </p>
-            </div>
-        </section>
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="site-footer">
-        <div class="container footer-grid">
-            <div>
-                <strong>Frauenverein Sarmenstorf</strong><br />
-                5614 Sarmenstorf
-            </div>
-            <div>
-                <strong>Kontakt</strong><br />
-                <a href="mailto:kontakt@frauenverein-sarmenstorf.ch">kontakt@frauenverein-sarmenstorf.ch</a>
-            </div>
-            <div>
-                <strong>Folgen</strong>
-                <!-- <br/><a href="#">Facebook</a> · <a href="#">Instagram</a> -->
-            </div>
+        <div class="vorstand-grid">
+          <div>
+            <p><strong>Präsidentin:</strong><br />Daniela Strebel</p>
+            <p><strong>Kassierin:</strong><br />Susi Tschumi</p>
+            <p><strong>Aktuarin:</strong><br />(Conni Hubel)</p>
+          </div>
+          <div>
+            <p><strong>Vizepräsidentin, Anlässe, Freizeitplausch:</strong><br />Nicole Salm</p>
+            <p><strong>Anlässe:</strong><br />Andrea Zuber</p>
+          </div>
         </div>
-        <div class="container legal">© <span id="year"></span> Frauenverein Sarmenstorf</div>
-    </footer>
 
-    <script>
-        // Jahr im Footer setzen
-        document.getElementById('year').textContent = new Date().getFullYear();
+        <p class="intro">
+          Ideen, Anregungen oder Wünsche können jederzeit gerne an uns gerichtet werden.<br />
+          Wir versuchen diese umzusetzen in der Gestaltung des kommenden Jahresprogrammes.<br />
+          Zusammen mit euch allen wünschen wir uns unvergessliche Stunden.
+        </p>
+      </div>
+    </section>
+  </main>
 
-        // Slideshow
-        (function () {
-            const count = 2; // Anzahl Bilder anpassen
-            const track = document.getElementById('vs-track');
-            const sources = Array.from({ length: count }, (_, i) => [
-                `./images/vorstand/vorstand-${i + 1}.jpg`,
-                `./images/vorstand/vorstand-${i + 1}.JPG`
-            ]);
-            sources.forEach((pair) => {
-                const img = new Image();
-                img.loading = 'lazy';
-                img.alt = 'Vorstand';
-                img.src = pair[0];
-                img.onerror = function () { this.onerror = null; this.src = pair[1]; };
-                track.appendChild(img);
-            });
-            if (track.children.length) track.appendChild(track.firstElementChild.cloneNode(true));
-            let idx = 0; const dur = 800, wait = 5000;
-            function move() {
-                idx++;
-                track.style.transition = `transform ${dur}ms ease-in-out`;
-                track.style.transform = `translateX(-${idx * 100}%)`;
-                if (idx === track.children.length - 1) {
-                    setTimeout(() => {
-                        track.style.transition = 'none';
-                        track.style.transform = 'translateX(0)';
-                        idx = 0;
-                    }, dur);
-                }
-            }
-            setInterval(move, wait);
-        })();
-    </script>
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>Frauenverein Sarmenstorf</strong><br />
+        5614 Sarmenstorf
+      </div>
+      <div>
+        <strong>Kontakt</strong><br />
+        <a href="mailto:kontakt@frauenverein-sarmenstorf.ch">kontakt@frauenverein-sarmenstorf.ch</a>
+      </div>
+      <div><strong>Folgen</strong></div>
+    </div>
+    <div class="container legal">© <span id="year"></span> Frauenverein Sarmenstorf</div>
+  </footer>
+
+  <script>
+    // Jahr im Footer setzen
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Header Steuerung
+    (function () {
+      const btn = document.getElementById('navToggle');
+      const overlay = document.getElementById('mobileOverlay');
+      const closeBtn = document.getElementById('overlayClose');
+
+      function openNav() {
+        overlay.classList.add('open');
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+      }
+      function closeNav() {
+        overlay.classList.remove('open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('no-scroll');
+      }
+
+      btn.addEventListener('click', () =>
+        overlay.classList.contains('open') ? closeNav() : openNav()
+      );
+      closeBtn.addEventListener('click', closeNav);
+      overlay.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+      window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width:851px)').matches) closeNav();
+      });
+    })();
+
+    // Slideshow
+    (function () {
+      const count = 2; // Anzahl Bilder anpassen
+      const track = document.getElementById('vs-track');
+      const sources = Array.from({ length: count }, (_, i) => [
+        `./images/vorstand/vorstand-${i + 1}.jpg`,
+        `./images/vorstand/vorstand-${i + 1}.JPG`
+      ]);
+      sources.forEach((pair) => {
+        const img = new Image();
+        img.loading = 'lazy';
+        img.alt = 'Vorstand';
+        img.src = pair[0];
+        img.onerror = function () { this.onerror = null; this.src = pair[1]; };
+        track.appendChild(img);
+      });
+      if (track.children.length) track.appendChild(track.firstElementChild.cloneNode(true));
+      let idx = 0; const dur = 800, wait = 5000;
+      function move() {
+        idx++;
+        track.style.transition = `transform ${dur}ms ease-in-out`;
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        if (idx === track.children.length - 1) {
+          setTimeout(() => {
+            track.style.transition = 'none';
+            track.style.transform = 'translateX(0)';
+            idx = 0;
+          }, dur);
+        }
+      }
+      setInterval(move, wait);
+    })();
+  </script>
 </body>
-
 </html>

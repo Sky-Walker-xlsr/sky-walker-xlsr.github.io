@@ -17,12 +17,14 @@
             <a class="brand-logo" href="./index.html">
                 <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
             </a>
-            <nav class="nav">
+
+            <!-- Desktop-Navi -->
+            <nav class="nav desktop-nav" aria-label="Hauptnavigation">
                 <ul>
                     <li><a href="./index.html">Startseite</a></li>
                     <li><a href="./ueber-uns.html">Über uns</a></li>
                     <li class="has-sub">
-                        <a href="./anlaesse.html">Anlässe <span class="caret">▾</span></a>
+                        <a href="./anlaesse.html">Anlässe <span class="caret" aria-hidden="true">▾</span></a>
                         <ul class="sub">
                             <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
                             <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
@@ -30,12 +32,38 @@
                         </ul>
                     </li>
                     <li><a href="./vorstand.html">Vorstand</a></li>
-                    <li><a href="./adventsfenster.html">Adventsfenster</a></li>
+                    <li><a href="./adventsfenster.html" aria-current="page">Adventsfenster</a></li>
                     <li><a href="./kontakt.html">Kontakt</a></li>
                 </ul>
             </nav>
+
+            <!-- Mobile Toggle -->
+            <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen"
+                aria-controls="mobileOverlay" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
+
+    <!-- Fullscreen Mobile Overlay -->
+    <nav class="mobile-overlay" id="mobileOverlay" aria-hidden="true" aria-label="Mobiles Menü">
+        <button class="overlay-close" id="overlayClose" type="button" aria-label="Menü schliessen">×</button>
+        <ul>
+            <li><a href="./index.html">Startseite</a></li>
+            <li><a href="./ueber-uns.html">Über uns</a></li>
+            <li>
+                <a href="./anlaesse.html">Anlässe</a>
+                <ul class="overlay-sub">
+                    <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
+                    <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
+                    <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
+                </ul>
+            </li>
+            <li><a href="./vorstand.html">Vorstand</a></li>
+            <li><a href="./adventsfenster.html" aria-current="page">Adventsfenster</a></li>
+            <li><a href="./kontakt.html">Kontakt</a></li>
+        </ul>
+    </nav>
 
     <main>
         <section class="intro">
@@ -74,17 +102,48 @@
                 <strong>Kontakt</strong><br />
                 <a href="mailto:kontakt@frauenverein-sarmenstorf.ch">kontakt@frauenverein-sarmenstorf.ch</a>
             </div>
-            <div>
-                <strong>Folgen</strong>
-                <!-- <br/><a href="#">Facebook</a> · <a href="#">Instagram</a> -->
-            </div>
+            <div><strong>Folgen</strong></div>
         </div>
         <div class="container legal">© <span id="year"></span> Frauenverein Sarmenstorf</div>
     </footer>
 
     <script>
+        // Jahr im Footer
         document.getElementById('year').textContent = new Date().getFullYear();
 
+        // Mobile Menü Script
+        (function () {
+            const btn = document.getElementById('navToggle');
+            const overlay = document.getElementById('mobileOverlay');
+            const closeBtn = document.getElementById('overlayClose');
+
+            function openNav() {
+                overlay.classList.add('open');
+                btn.classList.add('is-open');
+                btn.setAttribute('aria-expanded', 'true');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('no-scroll');
+            }
+            function closeNav() {
+                overlay.classList.remove('open');
+                btn.classList.remove('is-open');
+                btn.setAttribute('aria-expanded', 'false');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('no-scroll');
+            }
+
+            btn.addEventListener('click', () =>
+                overlay.classList.contains('open') ? closeNav() : openNav()
+            );
+            closeBtn.addEventListener('click', closeNav);
+            overlay.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+            window.addEventListener('resize', () => {
+                if (window.matchMedia('(min-width:851px)').matches) closeNav();
+            });
+        })();
+
+        // Adventsfenster-Daten
         const data = [
             { tag: 1, name: "Familie Bütler", adresse: "Brunnmattstrasse 20", umtrunk: "Mit Umtrunk" },
             { tag: 2, name: "Verfügbar", adresse: "", umtrunk: "" },
