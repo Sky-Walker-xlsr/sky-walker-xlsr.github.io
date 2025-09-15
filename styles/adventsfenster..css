@@ -1,0 +1,62 @@
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* jetzt 4 Karten pro Reihe */
+  gap: 30px; /* mehr Abstand zwischen den Karten */
+  justify-items: center;
+}
+
+.flip-card {
+  width: 180px;   /* größere Karten */
+  height: 180px;
+  perspective: 1200px;
+}
+
+.flip-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s ease;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-front, .flip-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 2rem; /* Zahl größer sichtbar */
+  text-align: center;
+}
+
+.flip-front {
+  background: var(--card);
+  color: var(--brand);
+}
+
+.flip-back {
+  background: var(--header-footer);
+  color: var(--fg);
+  transform: rotateY(180deg);
+  flex-direction: column;
+  font-size: 1rem;
+  padding: 15px;
+  line-height: 1.4;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 60px 0;
+  color: var(--fg);
+}
