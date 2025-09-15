@@ -1,4 +1,4 @@
-/* ========== Variables & Base ========== */
+/* =================== Variables & Base =================== */
 :root {
   --bg: #f2eee8;
   --header-footer: #e6dfd6;
@@ -6,7 +6,7 @@
   --brand: #d62828;
   --fg: #3e3a36;
   --muted: #7a6f67;
-  --radius: 14px
+  --radius: 14px;
 }
 
 * {
@@ -25,7 +25,7 @@ body {
   color: var(--fg);
   line-height: 1.55;
   display: flex;
-  flex-direction: column
+  flex-direction: column;
 }
 
 main {
@@ -37,7 +37,8 @@ a {
   text-decoration: none
 }
 
-a:hover {
+a:hover,
+a:focus {
   text-decoration: underline
 }
 
@@ -47,14 +48,14 @@ a:hover {
   padding: 0 20px
 }
 
-/* ========== Header (Desktop default) ========== */
+/* =================== Header (Desktop default) =================== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--header-footer);
   border-bottom: 1px solid #0001;
-  box-shadow: 0 2px 4px #0001
+  box-shadow: 0 2px 4px #0001;
 }
 
 .header-bar {
@@ -102,7 +103,7 @@ a:hover {
   height: 3px;
   margin-top: 6px;
   border-radius: 3px;
-  background: var(--brand)
+  background: var(--brand);
 }
 
 /* Desktop dropdown */
@@ -123,7 +124,7 @@ a:hover {
   box-shadow: 0 8px 24px #0000001a;
   border-radius: 6px;
   display: none;
-  z-index: 1000
+  z-index: 1000;
 }
 
 .has-sub .sub a {
@@ -141,14 +142,14 @@ a:hover {
   display: block
 }
 
-/* Toggle (hidden on desktop) */
+/* =================== Toggle (Burger) =================== */
 .nav-toggle {
   display: none;
   margin-left: auto;
   border: 0;
   background: transparent;
   cursor: pointer;
-  padding: 8px
+  padding: 8px;
 }
 
 .nav-toggle span {
@@ -172,13 +173,13 @@ a:hover {
   transform: translateY(-7px) rotate(-45deg)
 }
 
-/* ===== Mobile Overlay: Basis-Styles (immer aktiv) ===== */
+/* =================== Mobile Overlay (always defined) =================== */
 .mobile-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(0, 0, 0, .96);
-  color: #fff;
+  background: var(--header-footer);
+  color: var(--fg);
   transform: translateY(-100%);
   opacity: 0;
   pointer-events: none;
@@ -202,7 +203,7 @@ a:hover {
   right: 12px;
   font-size: 32px;
   line-height: 1;
-  color: #fff;
+  color: var(--fg);
   background: transparent;
   border: 0;
   padding: 6px;
@@ -220,10 +221,10 @@ a:hover {
 }
 
 .mobile-overlay a {
-  color: #fff;
+  color: var(--fg);
   text-decoration: none;
   font-size: 1.6rem;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .mobile-overlay .overlay-sub {
@@ -232,7 +233,7 @@ a:hover {
 
 .mobile-overlay .overlay-sub a {
   font-size: 1.2rem;
-  font-weight: 500;
+  font-weight: 600;
   opacity: .9;
 }
 
@@ -243,28 +244,34 @@ body.no-scroll {
   width: 100%;
 }
 
-/* ===== Breakpoint: nur Anzeige-Logik ===== */
-@media (max-width:700px) {
+/* Motion preference */
+@media (prefers-reduced-motion:reduce) {
+  .nav-toggle span {
+    transition: none
+  }
+
+  .mobile-overlay {
+    transition: none
+  }
+}
+
+/* =================== Breakpoints =================== */
+/* <850px: Desktop-Nav aus, Burger an */
+@media (max-width:850px) {
   .brand-logo img {
-    height: 48px;
+    height: 48px
   }
 
   .desktop-nav {
-    display: none;
+    display: none
   }
 
-  /* Desktop-Menü aus */
   .nav-toggle {
-    display: inline-block;
+    display: inline-block
   }
-
-  /* Burger an */
 }
 
-/* WICHTIG: keine generelle ".nav { display:none; }" hier drin lassen */
-
-
-/* ========== Utility ========== */
+/* =================== Utility =================== */
 .section {
   padding: 40px 0
 }
@@ -304,7 +311,7 @@ body.no-scroll {
   border: 1px solid #0001
 }
 
-/* ========== Footer ========== */
+/* =================== Footer =================== */
 .site-footer {
   margin-top: auto;
   padding: 28px 0;
