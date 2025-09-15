@@ -13,34 +13,36 @@
 <body>
 
     <!-- Header -->
-<header class="site-header">
-  <div class="container header-bar">
-    <a class="brand-logo" href="./index.html">
-      <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
-    </a>
+    <header class="site-header">
+        <div class="container header-bar">
+            <a class="brand-logo" href="./index.html">
+                <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
+            </a>
 
-    <!-- Mobile Toggle -->
-    <button class="nav-toggle" onclick="toggleNav()">☰</button>
+            <!-- Mobile Toggle -->
+            <nav class="mobile-nav" id="mobileNav">
+                <button class="close-btn" id="closeNav">×</button>
+                <ul>
+                    <li><a href="./index.html">Startseite</a></li>
+                    <li><a href="./ueber-uns.html">Über uns</a></li>
 
-    <nav class="nav" id="siteNav">
-      <ul>
-        <li><a href="./index.html">Startseite</a></li>
-        <li><a href="./ueber-uns.html">Über uns</a></li>
-        <li class="has-sub">
-          <a href="./anlaesse.html">Anlässe <span class="caret">▾</span></a>
-          <ul class="sub">
-            <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
-            <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
-            <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
-          </ul>
-        </li>
-        <li><a href="./vorstand.html">Vorstand</a></li>
-        <li><a href="./adventsfenster.html">Adventsfenster</a></li>
-        <li><a href="./kontakt.html">Kontakt</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+                    <li>
+                        <a href="./anlaesse.html">Anlässe</a>
+                        <ul>
+                            <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
+                            <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
+                            <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="./vorstand.html">Vorstand</a></li>
+                    <li><a href="./adventsfenster.html">Adventsfenster</a></li>
+                    <li><a href="./kontakt.html">Kontakt</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
 
 
     <main>
@@ -131,16 +133,13 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
     <script>
-      function toggleNav() {document.getElementById("siteNav").classList.toggle("open");}
+        const nav = document.getElementById('mobileNav');
+        document.getElementById('navToggle').onclick = () => nav.classList.add('open');
+        document.getElementById('closeNav').onclick = () => nav.classList.remove('open');
     </script>
+
 
 </body>
 
 
 </html>
-
-
-
-
-
-

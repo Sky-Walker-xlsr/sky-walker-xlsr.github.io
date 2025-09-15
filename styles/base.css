@@ -1,4 +1,4 @@
-/* Variablen & Grundlayout */
+/* ========== Variables & Base ========== */
 :root {
   --bg: #f2eee8;
   --header-footer: #e6dfd6;
@@ -6,19 +6,16 @@
   --brand: #d62828;
   --fg: #3e3a36;
   --muted: #7a6f67;
-  --radius: 14px;
+  --radius: 14px
 }
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
 html,
 body {
-  height: 100%;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
+  height: 100%
 }
 
 body {
@@ -27,54 +24,55 @@ body {
   background: var(--bg);
   color: var(--fg);
   line-height: 1.55;
+  display: flex;
+  flex-direction: column
 }
 
 main {
-  flex: 1;
-  /* nimmt den restlichen Platz ein und schiebt den Footer nach unten */
+  flex: 1
 }
 
 a {
   color: var(--brand);
-  text-decoration: none;
+  text-decoration: none
 }
 
 a:hover {
-  text-decoration: underline;
+  text-decoration: underline
 }
 
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 20px
 }
 
-/* Header */
+/* ========== Header (Desktop default) ========== */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 50;
   background: var(--header-footer);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid #0001;
+  box-shadow: 0 2px 4px #0001
 }
 
 .header-bar {
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 12px 0;
+  padding: 12px 0
 }
 
 .brand-logo img {
   height: 60px;
   width: auto;
-  display: block;
+  display: block
 }
 
-/* Navigation */
+/* Desktop nav */
 .nav {
-  margin-left: auto;
+  margin-left: auto
 }
 
 .nav ul {
@@ -84,19 +82,17 @@ a:hover {
   display: flex;
   gap: 14px;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap
 }
 
 .nav li {
-  position: relative;
+  position: relative
 }
 
 .nav a {
   display: inline-block;
   padding: 10px 12px;
-  color: var(--fg);
-  text-decoration: none;
-  border-radius: 0;
+  color: var(--fg)
 }
 
 .nav a:hover::after,
@@ -106,14 +102,14 @@ a:hover {
   height: 3px;
   margin-top: 6px;
   border-radius: 3px;
-  background: var(--brand);
+  background: var(--brand)
 }
 
-/* Dropdown */
+/* Desktop dropdown */
 .has-sub>a .caret {
   font-size: .9em;
   opacity: .8;
-  margin-left: 6px;
+  margin-left: 6px
 }
 
 .has-sub .sub {
@@ -124,93 +120,110 @@ a:hover {
   padding: 8px 0;
   background: #fffdf8;
   color: var(--fg);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
+  box-shadow: 0 8px 24px #0000001a;
   border-radius: 6px;
   display: none;
-  z-index: 1000;
-}
-
-.has-sub .sub li {
-  display: block;
+  z-index: 1000
 }
 
 .has-sub .sub a {
+  display: block;
   color: var(--fg);
-  padding: 10px 16px;
-  width: 100%;
+  padding: 10px 16px
 }
 
 .has-sub .sub a:hover {
-  background: rgba(0, 0, 0, .04);
+  background: #0000000a
 }
 
 .has-sub:hover .sub,
 .has-sub:focus-within .sub {
-  display: block;
+  display: block
 }
 
-/* Mobile Nav */
+/* Toggle button (hidden on desktop) */
 .nav-toggle {
   display: none;
   margin-left: auto;
   background: transparent;
-  color: var(--fg);
-  border: 1px solid rgba(0, 0, 0, 0.2);
+  border: 1px solid #0003;
   border-radius: 999px;
-  padding: 8px 12px;
+  width: 42px;
+  height: 42px;
+  cursor: pointer
 }
 
+/* ========== Mobile (≤700px): Apple-style overlay ========== */
 @media (max-width:700px) {
+  .brand-logo img {
+    height: 48px
+  }
+
   .nav {
-    display: none;
+    display: none
   }
 
-  .nav.open {
-    display: block;
-  }
-
-  .nav ul {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 0;
-  }
-
-  .nav li {
-    width: 100%;
-  }
-
-  .nav a {
-    width: 100%;
-    padding: 12px 6px;
-  }
-
-  .has-sub .sub {
-    position: static;
-    box-shadow: none;
-    background: transparent;
-    padding: 0 0 8px 12px;
-  }
-
-  .has-sub .sub a {
-    color: var(--fg);
-    padding: 8px 0;
-  }
-
+  /* hide desktop list on mobile */
   .nav-toggle {
-    display: inline-block;
-    font-size: 1.4rem;
-    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem
+  }
+
+  /* Fullscreen overlay */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #111;
+    color: #fff;
+    z-index: 200;
+    padding: 40px 24px;
+    overflow: auto
+  }
+
+  .mobile-nav.open {
+    display: flex;
+    flex-direction: column
+  }
+
+  .mobile-nav .close-btn {
+    background: none;
+    border: 0;
+    color: #fff;
+    font-size: 2rem;
+    align-self: flex-end;
+    margin-bottom: 16px;
+    cursor: pointer
+  }
+
+  .mobile-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 8px 0
+  }
+
+  .mobile-nav li {
+    margin: 18px 0
+  }
+
+  .mobile-nav a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.6rem;
+    line-height: 1.25
   }
 }
 
-/* Utility */
+/* ========== Utility ========== */
 .section {
-  padding: 40px 0;
+  padding: 40px 0
 }
 
 .section h1,
 .section h2 {
-  margin: 0 0 14px;
+  margin: 0 0 14px
 }
 
 .button {
@@ -221,61 +234,50 @@ a:hover {
   color: #fff;
   border-radius: 999px;
   padding: 12px 18px;
-  font-weight: 600;
+  font-weight: 600
 }
 
 .button.ghost {
   background: transparent;
   color: var(--brand);
-  border: 1px solid var(--brand);
+  border: 1px solid var(--brand)
 }
 
 .card {
   background: var(--card);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #0001;
   border-radius: var(--radius);
-  padding: 18px;
+  padding: 18px
 }
 
 .rounded {
   width: 100%;
   border-radius: var(--radius);
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid #0001
 }
 
-/* Footer */
+/* ========== Footer ========== */
 .site-footer {
   margin-top: auto;
   padding: 28px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
-  background: var(--header-footer);
+  border-top: 1px solid #0001;
+  background: var(--header-footer)
 }
 
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 20px
+}
+
+@media (max-width:900px) {
+  .footer-grid {
+    grid-template-columns: 1fr
+  }
 }
 
 .legal {
   text-align: center;
-  /* mittig */
-  font-size: 0.8rem;
-  color: #666;
-}
-
-footer .container-legal {
-  text-align: center;
-  /* Text mittig */
-  margin: 0 auto;
-  /* Block in der Mitte */
-  display: block;
-}
-
-
-@media (max-width:900px) {
-  .footer-grid {
-    grid-template-columns: 1fr;
-  }
-
+  font-size: .8rem;
+  color: #666
 }
