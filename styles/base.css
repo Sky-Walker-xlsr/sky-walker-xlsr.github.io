@@ -141,19 +141,38 @@ a:hover {
   display: block
 }
 
-/* Toggle button (hidden on desktop) */
+/* Toggle (hidden on desktop) */
 .nav-toggle {
   display: none;
   margin-left: auto;
+  border: 0;
   background: transparent;
-  border: 1px solid #0003;
-  border-radius: 999px;
-  width: 42px;
-  height: 42px;
-  cursor: pointer
+  cursor: pointer;
+  padding: 8px
 }
 
-/* ========== Mobile (≤700px): Apple-style overlay ========== */
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--fg);
+  margin: 5px 0;
+  transition: transform .2s, opacity .2s
+}
+
+.nav-toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg)
+}
+
+.nav-toggle.is-open span:nth-child(2) {
+  opacity: 0
+}
+
+.nav-toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg)
+}
+
+/* ========== Mobile (≤700px): Apple-style fullscreen overlay ========== */
 @media (max-width:700px) {
   .brand-logo img {
     height: 48px
@@ -163,57 +182,88 @@ a:hover {
     display: none
   }
 
-  /* hide desktop list on mobile */
+  /* Desktop-Liste auf Mobile ausblenden */
   .nav-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem
+    display: inline-block
   }
 
-  /* Fullscreen overlay */
+  /* Overlay: unterstütze beide Klassennamen (.mobile-overlay und .mobile-nav) */
+  .mobile-overlay,
   .mobile-nav {
-    display: none;
     position: fixed;
     inset: 0;
-    background: #111;
+    background: rgba(0, 0, 0, .96);
     color: #fff;
-    z-index: 200;
-    padding: 40px 24px;
+    z-index: 9999;
+    transform: translateY(-100%);
+    opacity: 0;
+    transition: transform .28s ease, opacity .28s ease;
+    padding: max(16px, env(safe-area-inset-top)) 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    pointer-events: none;
     overflow: auto
   }
 
+  .mobile-overlay.open,
   .mobile-nav.open {
-    display: flex;
-    flex-direction: column
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto
   }
 
-  .mobile-nav .close-btn {
-    background: none;
+  /* Close-Button oben rechts – ohne Rand */
+  .mobile-overlay .overlay-close,
+  .mobile-nav .overlay-close {
+    position: absolute;
+    top: max(8px, env(safe-area-inset-top));
+    right: 12px;
+    font-size: 32px;
+    line-height: 1;
+    background: transparent;
     border: 0;
     color: #fff;
-    font-size: 2rem;
-    align-self: flex-end;
-    margin-bottom: 16px;
     cursor: pointer
   }
 
+  /* Menü-Liste */
+  .mobile-overlay ul,
   .mobile-nav ul {
     list-style: none;
-    padding: 0;
-    margin: 8px 0
+    margin: 48px 0 0;
+    padding: 0
   }
 
-  .mobile-nav li {
-    margin: 18px 0
+  .mobile-overlay>ul>li,
+  .mobile-nav>ul>li {
+    margin: 10px 0
   }
 
+  .mobile-overlay a,
   .mobile-nav a {
     color: #fff;
     text-decoration: none;
     font-size: 1.6rem;
-    line-height: 1.25
+    font-weight: 600
   }
+
+  .mobile-overlay .overlay-sub,
+  .mobile-nav .overlay-sub {
+    margin: 8px 0 0 16px
+  }
+
+  .mobile-overlay .overlay-sub a,
+  .mobile-nav .overlay-sub a {
+    font-size: 1.2rem;
+    font-weight: 500;
+    opacity: .9
+  }
+}
+
+/* Body scroll lock bei offenem Overlay (per JS Klasse setzen) */
+body.no-scroll {
+  overflow: hidden
 }
 
 /* ========== Utility ========== */

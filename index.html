@@ -19,30 +19,53 @@
                 <img src="./images/logo.png" alt="Logo Frauenverein Sarmenstorf" />
             </a>
 
-            <!-- Mobile Toggle -->
-            <nav class="mobile-nav" id="mobileNav">
-                <button class="close-btn" id="closeNav">×</button>
+            <!-- Desktop-Navi bleibt -->
+            <nav class="nav desktop-nav">
                 <ul>
                     <li><a href="./index.html">Startseite</a></li>
                     <li><a href="./ueber-uns.html">Über uns</a></li>
-
-                    <li>
-                        <a href="./anlaesse.html">Anlässe</a>
-                        <ul>
+                    <li class="has-sub">
+                        <a href="./anlaesse.html">Anlässe <span class="caret">▾</span></a>
+                        <ul class="sub">
                             <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
                             <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
                             <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
                         </ul>
                     </li>
-
                     <li><a href="./vorstand.html">Vorstand</a></li>
                     <li><a href="./adventsfenster.html">Adventsfenster</a></li>
                     <li><a href="./kontakt.html">Kontakt</a></li>
                 </ul>
             </nav>
 
+            <!-- Mobile Toggle (nur mobil sichtbar per CSS) -->
+            <button class="nav-toggle" id="navToggle" aria-label="Menü öffnen" aria-controls="mobileOverlay"
+                aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </header>
+
+    <!-- Fullscreen Mobile Overlay -->
+    <nav class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+        <button class="overlay-close" id="overlayClose" aria-label="Menü schliessen">×</button>
+        <ul>
+            <li><a href="./index.html">Startseite</a></li>
+            <li><a href="./ueber-uns.html">Über uns</a></li>
+            <li>
+                <a href="./anlaesse.html">Anlässe</a>
+                <ul class="overlay-sub">
+                    <li><a href="./jahresprogramm.html">Jahresprogramm</a></li>
+                    <li><a href="./freizeitplausch.html">Freizeitplausch</a></li>
+                    <li><a href="./weihnachtsbasteln.html">Weihnachtsbasteln</a></li>
+                </ul>
+            </li>
+            <li><a href="./vorstand.html">Vorstand</a></li>
+            <li><a href="./adventsfenster.html">Adventsfenster</a></li>
+            <li><a href="./kontakt.html">Kontakt</a></li>
+        </ul>
+    </nav>
+
 
 
     <main>
@@ -133,10 +156,44 @@
         document.getElementById('year').textContent = new Date().getFullYear();
     </script>
     <script>
-        const nav = document.getElementById('mobileNav');
-        document.getElementById('navToggle').onclick = () => nav.classList.add('open');
-        document.getElementById('closeNav').onclick = () => nav.classList.remove('open');
+        (function () {
+            const btn = document.getElementById('navToggle');
+            const overlay = document.getElementById('mobileOverlay');
+            const closeBtn = document.getElementById('overlayClose');
+
+            function openNav() {
+                overlay.classList.add('open');
+                btn.classList.add('is-open');
+                btn.setAttribute('aria-expanded', 'true');
+                overlay.setAttribute('aria-hidden', 'false');
+                document.body.classList.add('no-scroll');
+            }
+            function closeNav() {
+                overlay.classList.remove('open');
+                btn.classList.remove('is-open');
+                btn.setAttribute('aria-expanded', 'false');
+                overlay.setAttribute('aria-hidden', 'true');
+                document.body.classList.remove('no-scroll');
+            }
+
+            btn.addEventListener('click', () => (overlay.classList.contains('open') ? closeNav() : openNav()));
+            closeBtn.addEventListener('click', closeNav);
+
+            // Link-Klick schliesst Overlay (Navigation)
+            overlay.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') closeNav();
+            });
+
+            // ESC schliesst Overlay
+            window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+
+            // Auf Desktop-Resize sauber aufräumen
+            window.addEventListener('resize', () => {
+                if (window.matchMedia('(min-width:701px)').matches) closeNav();
+            });
+        })();
     </script>
+
 
 
 </body>
