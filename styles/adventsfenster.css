@@ -2,8 +2,7 @@
 
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* Desktop: 4 Karten pro Reihe */
+  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 Karten pro Reihe */
   gap: 30px;
   justify-items: center;
 }
@@ -11,10 +10,8 @@
 /* Karten sind flexibel: füllen die Zelle, bleiben quadratisch */
 .flip-card {
   width: 100%;
-  max-width: 180px;
-  /* Obergrenze Desktop */
-  aspect-ratio: 1 / 1;
-  /* immer quadratisch */
+  max-width: 180px;          /* Obergrenze Desktop */
+  aspect-ratio: 1 / 1;       /* immer quadratisch */
   perspective: 1200px;
 }
 
@@ -49,8 +46,7 @@
 .flip-front {
   background: var(--card);
   color: var(--brand);
-  font-size: 2rem;
-  /* Zahl */
+  font-size: 2rem; /* Zahl */
 }
 
 .flip-back {
@@ -89,23 +85,15 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 22px;
   }
-
   .flip-card {
-    max-width: 220px;
-    /* darf pro Zelle etwas größer werden */
+    max-width: 220px;  /* darf pro Zelle etwas größer werden */
   }
 }
 
 /* sehr kleine Phones: etwas kleinere Typo */
 @media (max-width: 380px) {
-  .flip-front {
-    font-size: 1.8rem;
-  }
-
-  .flip-back {
-    font-size: 0.95rem;
-    padding: 12px;
-  }
+  .flip-front { font-size: 1.8rem; }
+  .flip-back  { font-size: 0.95rem; padding: 12px; }
 }
 
 /* Barrierefreiheit: weniger Animation für Menschen mit Motion-Reduce */
