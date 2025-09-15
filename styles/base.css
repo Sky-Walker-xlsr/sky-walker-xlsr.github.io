@@ -198,6 +198,8 @@ a:hover {
 
   .nav-toggle {
     display: inline-block;
+    font-size: 1.4rem;
+    cursor: pointer;
   }
 }
 
@@ -275,4 +277,5 @@ footer .container-legal {
   .footer-grid {
     grid-template-columns: 1fr;
   }
+
 }
