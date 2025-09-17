@@ -13,6 +13,12 @@
   max-width: 180px;          /* Obergrenze Desktop */
   aspect-ratio: 1 / 1;       /* immer quadratisch */
   perspective: 1200px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
 }
 
 .flip-inner {
@@ -23,10 +29,9 @@
   transform-style: preserve-3d;
 }
 
-/* Hover (Desktop) + Tap/Focus (Mobile) -> flip */
-.flip-card:hover .flip-inner,
-.flip-card:focus-within .flip-inner,
-.flip-card:active .flip-inner {
+/* Flip-Zustand: per Klasse (Mobile/Click) und via Hover (Desktop) */
+.flip-card.flipped .flip-inner,
+.flip-card:hover .flip-inner {
   transform: rotateY(180deg);
 }
 
@@ -98,7 +103,5 @@
 
 /* Barrierefreiheit: weniger Animation für Menschen mit Motion-Reduce */
 @media (prefers-reduced-motion: reduce) {
-  .flip-inner {
-    transition: none;
-  }
+  .flip-inner { transition: none; }
 }
