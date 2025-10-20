@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="./styles/base.css" />
   <link rel="stylesheet" href="./styles/adventsfenster.css" />
 </head>
+
 <body>
 
   <!-- HEADER -->
@@ -37,8 +39,8 @@
       </nav>
 
       <!-- Mobile Toggle -->
-      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen"
-        aria-controls="mobileOverlay" aria-expanded="false">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen" aria-controls="mobileOverlay"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -171,14 +173,14 @@
 
     const grid = document.getElementById('adv-grid');
     grid.innerHTML = data.map(f => `
-      <div class="flip-card" role="button" tabindex="0" aria-label="Tag ${f.tag}">
+      <div class="flip-card" role="button" tabindex="0">
         <div class="flip-inner">
           <div class="flip-front">${f.tag}</div>
           <div class="flip-back">
-            <span class="back-day" aria-hidden="true">${f.tag}</span>
-            <strong>${f.name}</strong><br/>
-            ${f.adresse}<br/>
-            ${f.umtrunk}<br/>
+            <span class="back-day">${f.tag}</span>
+            <strong>${f.name}</strong>
+            ${f.adresse ? `<span>${f.adresse}</span>` : ''}
+            ${f.umtrunk ? `<span>${f.umtrunk}</span>` : ''}
           </div>
         </div>
       </div>`).join('');
@@ -199,4 +201,5 @@
     });
   </script>
 </body>
+
 </html>

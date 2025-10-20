@@ -1,39 +1,28 @@
-/* ===== Adventsfenster: Grid & Cards (final) ===== */
+/* ===== Adventsfenster: Fixed 4x6 Grid ===== */
 
-:root {
-  --card-size: 180px;   /* Desktop-Grösse der Karten */
-}
-
-/* Grid mit mehreren Spalten, automatisch umbrechend */
+/* Grid-Container: FESTES 4-Spalten Layout */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
+  grid-template-columns: repeat(4, 180px);  /* EXAKT 4 Spalten à 180px */
   gap: 30px;
-  justify-items: center;
-  align-items: start;
-
-  /* Counter für die Rückseiten-Zahl (1..24 in DOM-Reihenfolge) */
-  counter-reset: advday 0;
+  justify-content: center;  /* Grid selbst zentrieren */
+  width: 100%;
 }
 
-/* Karte: feste Breite/Höhe (keine aspect-ratio) */
+/* Karte: FIXE quadratische Grösse */
 .flip-card {
-  counter-increment: advday;
-  width: 100%;
-  max-width: var(--card-size);
-  height: var(--card-size);              /* FIXE HÖHE */
+  width: 180px;
+  height: 180px;
   perspective: 1000px;
   cursor: pointer;
-  -webkit-user-select: none;
   user-select: none;
+  -webkit-user-select: none;
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   outline: none;
-
-  /* Falls irgendwo noch ein aspect-ratio definiert ist: neutralisieren */
-  aspect-ratio: auto !important;
 }
 
+/* Inner Container */
 .flip-inner {
   width: 100%;
   height: 100%;
@@ -42,25 +31,22 @@
   transform-style: preserve-3d;
 }
 
-/* Flip nur für die aktive Karte */
-.flip-card:hover .flip-inner,
-.flip-card.flipped .flip-inner {
+/* Flip-Zustand */
+.flip-card.flipped .flip-inner,
+.flip-card:hover .flip-inner {
   transform: rotateY(180deg);
 }
 
-/* Während des Flips die Front vollständig ausblenden,
-   damit keine kleine Zahl “oben” auf der Rückseite erscheint */
-.flip-card:hover .flip-front,
-.flip-card.flipped .flip-front {
-  opacity: 0;
-  transition: opacity .2s ease;
-}
-
+/* Beide Seiten */
 .flip-front,
 .flip-back {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: var(--radius);
   display: flex;
   align-items: center;
@@ -68,7 +54,7 @@
   text-align: center;
 }
 
-/* Vorderseite: kleine rote Zahl */
+/* Vorderseite */
 .flip-front {
   background: var(--card);
   color: var(--brand);
@@ -84,32 +70,38 @@
   padding: 15px;
   line-height: 1.4;
   position: relative;
-  overflow: hidden;                     /* schneidet grosse Zahl sauber ab */
-  display: grid;
-  grid-auto-rows: min-content;
-  row-gap: 8px;
+  overflow: hidden;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.95rem;
 }
 
-/* Grosse Hintergrund-Zahl (Wasserzeichen) – HINTER allem Text */
-.flip-back::before {
-  content: counter(advday);
+/* GROSSE ZAHL IM HINTERGRUND */
+.flip-back .back-day {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-weight: 800;
+  font-size: 120px;
   line-height: 1;
-  font-size: calc(var(--card-size) * 0.6);  /* skaliert zur Kartenhöhe */
-  color: #f2eee8;                            /* Seitenhintergrundfarbe */
+  color: rgba(242, 238, 232, 0.15);
   pointer-events: none;
-  z-index: 0;                                /* HINTER dem gesamten Text */
+  z-index: 0;
 }
 
-/* Sämtlicher Rückseiten-Text (Name, Adresse, Umtrunk) VOR der Zahl */
-.flip-back > * {
+/* Text ÜBER der grossen Zahl */
+.flip-back > strong,
+.flip-back > span:not(.back-day) {
   position: relative;
   z-index: 1;
+  display: block;
+  margin: 0;
+}
+
+.flip-back > strong {
+  font-weight: 700;
+  margin-bottom: 4px;
 }
 
 /* Seitentitel */
@@ -122,24 +114,75 @@
   color: var(--fg);
 }
 
+/* Intro-Text */
+.intro p {
+  max-width: 800px;
+  margin: 0 auto 20px;
+  text-align: center;
+  line-height: 1.6;
+}
+
 /* ===== Responsiv ===== */
 
+/* Tablets: 3 Spalten */
 @media (max-width: 1100px) {
-  .calendar-grid { gap: 28px; }
+  .calendar-grid {
+    grid-template-columns: repeat(3, 180px);
+    gap: 28px;
+  }
 }
 
+/* Mobile: 2 Spalten, grössere Karten */
 @media (max-width: 850px) {
-  :root { --card-size: 220px; }      /* grössere Karten auf Mobile */
-  .calendar-grid { gap: 22px; }
+  .calendar-grid {
+    grid-template-columns: repeat(2, 200px);
+    gap: 22px;
+  }
+  
+  .flip-card {
+    width: 200px;
+    height: 200px;
+  }
+  
+  .page-title {
+    font-size: 1.8rem;
+    padding: 40px 0;
+  }
+  
+  .back-day {
+    font-size: 110px !important;
+  }
 }
 
-@media (max-width: 380px) {
-  :root { --card-size: 200px; }
-  .flip-front { font-size: 1.8rem; }
-  .flip-back  { font-size: 0.95rem; padding: 12px; }
+/* Sehr kleine Phones: 2 Spalten, noch kleinere Karten */
+@media (max-width: 500px) {
+  .calendar-grid {
+    grid-template-columns: repeat(2, 160px);
+    gap: 16px;
+  }
+  
+  .flip-card {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .flip-front {
+    font-size: 1.8rem;
+  }
+  
+  .flip-back {
+    font-size: 0.85rem;
+    padding: 12px;
+  }
+  
+  .back-day {
+    font-size: 90px !important;
+  }
 }
 
 /* Motion-Reduce */
 @media (prefers-reduced-motion: reduce) {
-  .flip-inner { transition: none; }
+  .flip-inner {
+    transition: none;
+  }
 }
