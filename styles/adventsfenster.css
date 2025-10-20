@@ -91,6 +91,19 @@
   font-size: clamp(5rem, 18vw, 10rem);
   color: #f2eee8;         /* Seitenhintergrundfarbe */
   pointer-events: none;
+  z-index: 1;             /* über Adresse/Umtrunk, unter dem Namen */
+}
+
+/* Name (WER) immer vor der Zahl */
+.flip-back > strong {
+  position: relative;
+  z-index: 2;
+}
+
+/* Adresse & Umtrunk hinter der Zahl */
+.flip-back > :not(strong) {
+  position: relative;
+  z-index: 2;
 }
 
 /* Seitentitel (unverändert) */
