@@ -1,22 +1,28 @@
-/* ===== Adventsfenster: Grid & Cards ===== */
+/* ===== Adventsfenster: Grid & Cards (komplett) ===== */
 
 :root {
-  --card-size: 180px; /* Desktop-Grundgrösse */
+  --card-size: 180px;   /* Desktop-Grösse der Karten */
 }
 
+/* Grid: mehrere Spalten, automatisch umbrechend */
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
   gap: 30px;
   justify-items: center;
+  align-items: start;
+
+  /* CSS-Counter für die Rückseiten-Zahl (1..24 in DOM-Reihenfolge) */
+  counter-reset: advday 0;
 }
 
-/* Feste quadratische Karten */
+/* Karte: feste Breite/Höhe (keine aspect-ratio) */
 .flip-card {
+  counter-increment: advday;          /* zählt für ::before auf der Rückseite */
   width: 100%;
   max-width: var(--card-size);
-  height: var(--card-size);          /* feste Höhe */
-  perspective: 1200px;
+  height: var(--card-size);           /* fix */
+  perspective: 1000px;
   cursor: pointer;
   -webkit-user-select: none;
   user-select: none;
@@ -29,13 +35,13 @@
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.8s ease;
+  transition: transform 0.6s ease;
   transform-style: preserve-3d;
 }
 
-/* Flip-Zustand (Hover + Click/Tap) */
-.flip-card.flipped .flip-inner,
-.flip-card:hover .flip-inner {
+/* Flip-Zustand: nur die aktive Karte */
+.flip-card:hover .flip-inner,
+.flip-card.flipped .flip-inner {
   transform: rotateY(180deg);
 }
 
@@ -48,7 +54,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
   text-align: center;
 }
 
@@ -56,54 +61,53 @@
 .flip-front {
   background: var(--card);
   color: var(--brand);
+  font-weight: 700;
   font-size: 2rem;
 }
 
-/* Rückseite: Inhaltsschichten */
+/* Rückseite: Inhalt + Ebenen */
 .flip-back {
   background: var(--header-footer);
   color: var(--fg);
   transform: rotateY(180deg);
-  flex-direction: column;
-  font-size: 1rem;
   padding: 15px;
   line-height: 1.4;
   position: relative;
   overflow: hidden; /* schneidet die grosse Zahl sauber am Rand ab */
+  display: grid;
+  grid-auto-rows: min-content;
+  row-gap: 8px;
 }
 
-/* Grosse Hintergrund-Zahl (Wasserzeichen) */
-.flip-back .back-day {
+/* Grosse Hintergrund-Zahl auf der Rückseite (Wasserzeichen) */
+.flip-back::before {
+  content: counter(advday);
   position: absolute;
-  inset: 0; /* füllt die Karte */
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
   line-height: 1;
   font-size: clamp(5rem, 18vw, 10rem);
-  color: #f2eee8; /* Seitenhintergrund */
+  color: #f2eee8;         /* Seitenhintergrundfarbe */
   pointer-events: none;
-  z-index: 1; /* liegt ÜBER details, aber UNTER dem Host-Namen */
+  z-index: 1;             /* über Adresse/Umtrunk, unter dem Namen */
 }
 
-/* Name (WER) immer im Vordergrund */
-.flip-back .host {
+/* Name (WER) immer vor der Zahl */
+.flip-back > strong {
   position: relative;
   z-index: 2;
-  display: block;
-  text-align: center;
 }
 
-/* Adresse & Umtrunk HINTER der Zahl */
-.flip-back .details {
+/* Adresse & Umtrunk hinter der Zahl */
+.flip-back > :not(strong) {
   position: relative;
-  z-index: 0; /* kleiner als .back-day (1) -> liegt darunter */
-  text-align: center;
-  margin-top: 8px;
+  z-index: 0;
 }
 
-/* Titel der Seite */
+/* Seitentitel (unverändert) */
 .page-title {
   font-size: 2.2rem;
   font-weight: 700;
@@ -113,25 +117,22 @@
   color: var(--fg);
 }
 
-/* ===== Responsives Verhalten ===== */
+/* ===== Responsiv ===== */
 
-/* Grössere Tablets/Laptops: 3 pro Reihe */
+/* grössere Tablets/Laptops: nur Abstände anpassen */
 @media (max-width: 1100px) {
-  .calendar-grid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-  }
+  .calendar-grid { gap: 28px; }
 }
 
-/* Mobile: 2 pro Reihe + grössere Karten */
+/* Mobile: grössere Karten, 2 pro Reihe durch auto-fit/minmax */
 @media (max-width: 850px) {
   :root { --card-size: 220px; }
-  .calendar-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .calendar-grid { gap: 22px; }
 }
 
 /* sehr kleine Phones */
 @media (max-width: 380px) {
-  :root { --card-size: 200px; } /* leicht kleiner, bleibt fix */
+  :root { --card-size: 200px; }
   .flip-front { font-size: 1.8rem; }
   .flip-back  { font-size: 0.95rem; padding: 12px; }
 }
