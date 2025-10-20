@@ -1,10 +1,10 @@
-/* ===== Adventsfenster: Grid & Cards (komplett) ===== */
+/* ===== Adventsfenster: Grid & Cards (final) ===== */
 
 :root {
   --card-size: 180px;   /* Desktop-Grösse der Karten */
 }
 
-/* Grid: mehrere Spalten, automatisch umbrechend */
+/* Grid mit mehreren Spalten, automatisch umbrechend */
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--card-size), 1fr));
@@ -12,16 +12,16 @@
   justify-items: center;
   align-items: start;
 
-  /* CSS-Counter für die Rückseiten-Zahl (1..24 in DOM-Reihenfolge) */
+  /* Counter für die Rückseiten-Zahl (1..24 in DOM-Reihenfolge) */
   counter-reset: advday 0;
 }
 
 /* Karte: feste Breite/Höhe (keine aspect-ratio) */
 .flip-card {
-  counter-increment: advday;          /* zählt für ::before auf der Rückseite */
+  counter-increment: advday;
   width: 100%;
   max-width: var(--card-size);
-  height: var(--card-size);           /* fix */
+  height: var(--card-size);              /* FIXE HÖHE */
   perspective: 1000px;
   cursor: pointer;
   -webkit-user-select: none;
@@ -29,6 +29,9 @@
   -webkit-touch-callout: none;
   -webkit-tap-highlight-color: transparent;
   outline: none;
+
+  /* Falls irgendwo noch ein aspect-ratio definiert ist: neutralisieren */
+  aspect-ratio: auto !important;
 }
 
 .flip-inner {
@@ -39,10 +42,18 @@
   transform-style: preserve-3d;
 }
 
-/* Flip-Zustand: nur die aktive Karte */
+/* Flip nur für die aktive Karte */
 .flip-card:hover .flip-inner,
 .flip-card.flipped .flip-inner {
   transform: rotateY(180deg);
+}
+
+/* Während des Flips die Front vollständig ausblenden,
+   damit keine kleine Zahl “oben” auf der Rückseite erscheint */
+.flip-card:hover .flip-front,
+.flip-card.flipped .flip-front {
+  opacity: 0;
+  transition: opacity .2s ease;
 }
 
 .flip-front,
@@ -57,7 +68,7 @@
   text-align: center;
 }
 
-/* Vorderseite: Zahl */
+/* Vorderseite: kleine rote Zahl */
 .flip-front {
   background: var(--card);
   color: var(--brand);
@@ -65,7 +76,7 @@
   font-size: 2rem;
 }
 
-/* Rückseite: Inhalt + Ebenen */
+/* Rückseite */
 .flip-back {
   background: var(--header-footer);
   color: var(--fg);
@@ -73,12 +84,13 @@
   padding: 15px;
   line-height: 1.4;
   position: relative;
+  overflow: hidden;                     /* schneidet grosse Zahl sauber ab */
   display: grid;
   grid-auto-rows: min-content;
   row-gap: 8px;
 }
 
-/* Grosse Hintergrund-Zahl auf der Rückseite (Wasserzeichen) */
+/* Grosse Hintergrund-Zahl (Wasserzeichen) – HINTER allem Text */
 .flip-back::before {
   content: counter(advday);
   position: absolute;
@@ -86,27 +98,21 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1;
-  font-size: clamp(5rem, 18vw, 10rem);
-  color: #f2eee8;         /* Seitenhintergrundfarbe */
+  font-size: calc(var(--card-size) * 0.6);  /* skaliert zur Kartenhöhe */
+  color: #f2eee8;                            /* Seitenhintergrundfarbe */
   pointer-events: none;
-  z-index: 1;             /* über Adresse/Umtrunk, unter dem Namen */
+  z-index: 0;                                /* HINTER dem gesamten Text */
 }
 
-/* Name (WER) immer vor der Zahl */
-.flip-back > strong {
+/* Sämtlicher Rückseiten-Text (Name, Adresse, Umtrunk) VOR der Zahl */
+.flip-back > * {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }
 
-/* Adresse & Umtrunk hinter der Zahl */
-.flip-back > :not(strong) {
-  position: relative;
-  z-index: 2;
-}
-
-/* Seitentitel (unverändert) */
+/* Seitentitel */
 .page-title {
   font-size: 2.2rem;
   font-weight: 700;
@@ -118,25 +124,22 @@
 
 /* ===== Responsiv ===== */
 
-/* grössere Tablets/Laptops: nur Abstände anpassen */
 @media (max-width: 1100px) {
   .calendar-grid { gap: 28px; }
 }
 
-/* Mobile: grössere Karten, 2 pro Reihe durch auto-fit/minmax */
 @media (max-width: 850px) {
-  :root { --card-size: 220px; }
+  :root { --card-size: 220px; }      /* grössere Karten auf Mobile */
   .calendar-grid { gap: 22px; }
 }
 
-/* sehr kleine Phones */
 @media (max-width: 380px) {
   :root { --card-size: 200px; }
   .flip-front { font-size: 1.8rem; }
   .flip-back  { font-size: 0.95rem; padding: 12px; }
 }
 
-/* Barrierefreiheit */
+/* Motion-Reduce */
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
 }
