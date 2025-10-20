@@ -1,17 +1,21 @@
 /* ===== Adventsfenster: Grid & Cards ===== */
 
+:root {
+  --card-size: 180px; /* Desktop-Grundgrösse */
+}
+
 .calendar-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Desktop: 4 Karten pro Reihe */
+  grid-template-columns: repeat(4, 1fr);
   gap: 30px;
   justify-items: center;
 }
 
-/* Karten sind flexibel: füllen die Zelle, bleiben quadratisch */
+/* Feste quadratische Karten */
 .flip-card {
   width: 100%;
-  max-width: 180px;          /* Obergrenze Desktop */
-  aspect-ratio: 1 / 1;       /* immer quadratisch */
+  max-width: var(--card-size);
+  height: var(--card-size);          /* feste Höhe */
   perspective: 1200px;
   cursor: pointer;
   -webkit-user-select: none;
@@ -29,7 +33,7 @@
   transform-style: preserve-3d;
 }
 
-/* Flip-Zustand: per Klasse (Mobile/Click) und via Hover (Desktop) */
+/* Flip-Zustand (Hover + Click/Tap) */
 .flip-card.flipped .flip-inner,
 .flip-card:hover .flip-inner {
   transform: rotateY(180deg);
@@ -48,12 +52,14 @@
   text-align: center;
 }
 
+/* Vorderseite: Zahl */
 .flip-front {
   background: var(--card);
   color: var(--brand);
-  font-size: 2rem; /* Zahl */
+  font-size: 2rem;
 }
 
+/* Rückseite: Inhaltsschichten */
 .flip-back {
   background: var(--header-footer);
   color: var(--fg);
@@ -63,10 +69,41 @@
   padding: 15px;
   line-height: 1.4;
   position: relative;
-  overflow: hidden;
+  overflow: hidden; /* schneidet die grosse Zahl sauber am Rand ab */
 }
 
-/* Titel */
+/* Grosse Hintergrund-Zahl (Wasserzeichen) */
+.flip-back .back-day {
+  position: absolute;
+  inset: 0; /* füllt die Karte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  line-height: 1;
+  font-size: clamp(5rem, 18vw, 10rem);
+  color: #f2eee8; /* Seitenhintergrund */
+  pointer-events: none;
+  z-index: 1; /* liegt ÜBER details, aber UNTER dem Host-Namen */
+}
+
+/* Name (WER) immer im Vordergrund */
+.flip-back .host {
+  position: relative;
+  z-index: 2;
+  display: block;
+  text-align: center;
+}
+
+/* Adresse & Umtrunk HINTER der Zahl */
+.flip-back .details {
+  position: relative;
+  z-index: 0; /* kleiner als .back-day (1) -> liegt darunter */
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* Titel der Seite */
 .page-title {
   font-size: 2.2rem;
   font-weight: 700;
@@ -78,7 +115,7 @@
 
 /* ===== Responsives Verhalten ===== */
 
-/* Größere Tablets/Laptops: 3 pro Reihe */
+/* Grössere Tablets/Laptops: 3 pro Reihe */
 @media (max-width: 1100px) {
   .calendar-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -86,45 +123,20 @@
   }
 }
 
-/* **Mobile**: exakt 2 pro Reihe */
+/* Mobile: 2 pro Reihe + grössere Karten */
 @media (max-width: 850px) {
-  .calendar-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 22px;
-  }
-  .flip-card {
-    max-width: 220px;  /* darf pro Zelle etwas größer werden */
-  }
+  :root { --card-size: 220px; }
+  .calendar-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
 }
 
-/* sehr kleine Phones: etwas kleinere Typo */
+/* sehr kleine Phones */
 @media (max-width: 380px) {
+  :root { --card-size: 200px; } /* leicht kleiner, bleibt fix */
   .flip-front { font-size: 1.8rem; }
   .flip-back  { font-size: 0.95rem; padding: 12px; }
 }
 
-/* Barrierefreiheit: weniger Animation für Menschen mit Motion-Reduce */
+/* Barrierefreiheit */
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
-}
-
-
-/* Die grosse Zahl – zentriert, vollflächig, hinter dem Text */
-.flip-back .back-day {
-  position: absolute;
-  inset: 0;                           
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  line-height: 1;
-  font-size: clamp(5rem, 18vw, 10rem); 
-  color: #f2eee8;                      
-  pointer-events: none;
-  z-index: 0;                          
-}
-
-.flip-back > :not(.back-day) {
-  position: relative;
-  z-index: 1;
 }
