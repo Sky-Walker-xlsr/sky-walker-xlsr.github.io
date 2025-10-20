@@ -110,24 +110,21 @@
 
 
 /* Die grosse Zahl – zentriert, vollflächig, hinter dem Text */
-.flip-back::before {
-  content: attr(data-day);
+.flip-back .back-day {
   position: absolute;
-  inset: 0; /* füllt d’ganzi Karte */
+  inset: 0;                           
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 800;
   line-height: 1;
-  color: #f2eee8;          /* Webseiten-Hintergrund, wie gwünscht */
+  font-size: clamp(5rem, 18vw, 10rem); 
+  color: #f2eee8;                      
   pointer-events: none;
-  z-index: 0;              /* hinter em Inhalt */
-  /* Grösse: passt sich halbwegs an versch. Kartengrössen a */
-  font-size: clamp(4rem, 15vw, 7.5rem);
+  z-index: 0;                          
 }
 
-/* Sicherstellen, dass dr eigentligi Rückseiten-Text drüber ligt */
-.flip-back > * {
+.flip-back > :not(.back-day) {
   position: relative;
   z-index: 1;
 }

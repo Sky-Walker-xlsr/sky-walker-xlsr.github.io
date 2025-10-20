@@ -174,7 +174,8 @@
       <div class="flip-card" role="button" tabindex="0" aria-label="Tag ${f.tag}">
         <div class="flip-inner">
           <div class="flip-front">${f.tag}</div>
-          <div class="flip-back" data-day="${f.tag}">
+          <div class="flip-back">
+            <span class="back-day" aria-hidden="true">${f.tag}</span>
             <strong>${f.name}</strong><br/>
             ${f.adresse}<br/>
             ${f.umtrunk}<br/>
