@@ -62,6 +62,8 @@
   font-size: 1rem;
   padding: 15px;
   line-height: 1.4;
+  position: relative;
+  overflow: hidden;
 }
 
 /* Titel */
@@ -104,4 +106,28 @@
 /* Barrierefreiheit: weniger Animation für Menschen mit Motion-Reduce */
 @media (prefers-reduced-motion: reduce) {
   .flip-inner { transition: none; }
+}
+
+
+/* Die grosse Zahl – zentriert, vollflächig, hinter dem Text */
+.flip-back::before {
+  content: attr(data-day);
+  position: absolute;
+  inset: 0; /* füllt d’ganzi Karte */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  line-height: 1;
+  color: #f2eee8;          /* Webseiten-Hintergrund, wie gwünscht */
+  pointer-events: none;
+  z-index: 0;              /* hinter em Inhalt */
+  /* Grösse: passt sich halbwegs an versch. Kartengrössen a */
+  font-size: clamp(4rem, 15vw, 7.5rem);
+}
+
+/* Sicherstellen, dass dr eigentligi Rückseiten-Text drüber ligt */
+.flip-back > * {
+  position: relative;
+  z-index: 1;
 }
