@@ -172,24 +172,33 @@
     ];
 
     const grid = document.getElementById('adv-grid');
-    grid.innerHTML = data.map(f => `
-      <div class="flip-card" role="button" tabindex="0">
-        <div class="flip-inner">
-          <div class="flip-front">${f.tag}</div>
-          <div class="flip-back">
-            <span class="back-day">${f.tag}</span>
-            <strong>${f.name}</strong>
-            ${f.adresse ? `<span>${f.adresse}</span>` : ''}
-            ${f.umtrunk ? `<span>${f.umtrunk}</span>` : ''}
+    grid.innerHTML = data.map(f => {
+      const details = [f.name, f.adresse, f.umtrunk].filter(Boolean).join(', ');
+      const ariaLabel = `Adventsfenster ${f.tag}${details ? `: ${details}` : ''}`;
+      return `
+        <div class="flip-card" role="button" tabindex="0" aria-label="${ariaLabel}" aria-pressed="false">
+          <div class="flip-inner">
+            <div class="flip-front">${f.tag}</div>
+            <div class="flip-back">
+              <span class="back-day">${f.tag}</span>
+              <strong>${f.name}</strong>
+              ${f.adresse ? `<span class="back-address">${f.adresse}</span>` : ''}
+              ${f.umtrunk ? `<span class="back-extra">${f.umtrunk}</span>` : ''}
+            </div>
           </div>
-        </div>
-      </div>`).join('');
+        </div>`;
+    }).join('');
 
     // Tap/Click & Keyboard: Flip zuverlässig auf Mobile
+    const toggleCard = (card) => {
+      const flipped = card.classList.toggle('flipped');
+      card.setAttribute('aria-pressed', flipped ? 'true' : 'false');
+    };
+
     grid.addEventListener('click', (e) => {
       const card = e.target.closest('.flip-card');
       if (!card) return;
-      card.classList.toggle('flipped');
+      toggleCard(card);
     });
 
     grid.addEventListener('keydown', (e) => {
@@ -197,7 +206,7 @@
       const card = e.target.closest('.flip-card');
       if (!card) return;
       e.preventDefault();
-      card.classList.toggle('flipped');
+      toggleCard(card);
     });
   </script>
 </body>

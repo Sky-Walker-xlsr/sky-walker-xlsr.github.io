@@ -67,30 +67,33 @@
   background: var(--header-footer);
   color: var(--fg);
   transform: rotateY(180deg);
-  padding: 15px;
-  line-height: 1.4;
-  position: relative;
-  overflow: hidden;
+  padding: 20px;
+  line-height: 1.45;
   flex-direction: column;
-  gap: 2px;
+  align-items: flex-start;
+  justify-content: flex-start;
+  text-align: left;
+  gap: 6px;
   font-size: 0.95rem;
 }
 
-/* GROSSE ZAHL IM HINTERGRUND */
+/* Badge mit Tageszahl auf der Rückseite */
 .flip-back .back-day {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: 800;
-  font-size: 120px;
-  line-height: 1;
-  color: rgba(242, 238, 232, 0.15);
-  pointer-events: none;
-  z-index: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 18px;
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--fg);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  box-shadow: inset 0 0 0 2px #0000000f, 0 10px 18px #00000014;
 }
 
-/* Text ÜBER der grossen Zahl */
+/* Textblöcke auf der Rückseite */
 .flip-back > strong,
 .flip-back > span:not(.back-day) {
   position: relative;
@@ -101,7 +104,24 @@
 
 .flip-back > strong {
   font-weight: 700;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
+}
+
+.flip-back .back-address {
+  color: var(--muted);
+}
+
+.flip-back .back-extra {
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: rgba(214, 40, 40, 0.12);
+  color: var(--brand);
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 /* Seitentitel */
@@ -148,11 +168,8 @@
     font-size: 1.8rem;
     padding: 40px 0;
   }
-  
-  .back-day {
-    font-size: 110px !important;
-  }
 }
+  
 
 /* Sehr kleine Phones: 2 Spalten, noch kleinere Karten */
 @media (max-width: 500px) {
@@ -174,9 +191,10 @@
     font-size: 0.85rem;
     padding: 12px;
   }
-  
-  .back-day {
-    font-size: 90px !important;
+
+  .flip-back .back-day {
+    font-size: 0.95rem;
+    padding: 5px 14px;
   }
 }
 
