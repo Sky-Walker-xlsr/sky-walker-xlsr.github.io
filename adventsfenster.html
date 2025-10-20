@@ -176,13 +176,12 @@
           <div class="flip-front">${f.tag}</div>
           <div class="flip-back">
             <span class="back-day" aria-hidden="true">${f.tag}</span>
-              <strong class="host">${f.name}</strong>
-              <div class="details">
-                ${f.adresse}<br/>
-                ${f.umtrunk}
-              </div>
+            <strong>${f.name}</strong><br/>
+            ${f.adresse}<br/>
+            ${f.umtrunk}<br/>
           </div>
-        </div>`).join('');
+        </div>
+      </div>`).join('');
 
     // Tap/Click & Keyboard: Flip zuverlässig auf Mobile
     grid.addEventListener('click', (e) => {
