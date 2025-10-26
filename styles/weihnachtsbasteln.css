@@ -1,4 +1,4 @@
-/* ——— Hero/Intro (bereits vorhanden) ——— */
+/* ——— Hero/Intro ——— */
 .ueber-uns {
   padding: 60px 0;
   text-align: center;
@@ -33,80 +33,78 @@
   display: block;
 }
 
-/* ——— Galerie aus dem PDF ——— */
-.bastel-section {
-  padding: 20px 0 64px;
+/* ——— Galerie (modular, wie Vorlage) ——— */
+.gallery { 
+  padding: 10px 0 64px; 
 }
 
-.bastel-title {
+.gallery .bastel-title,
+.gallery .gallery-title {
   font-size: 1.8rem;
   margin: 0 0 16px;
   text-align: center;
 }
 
-.bastel-grid {
+/* 12-Spalten-Grid für flexible Anordnung */
+.gallery-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(12, 1fr);
   gap: 18px;
 }
 
-@media (max-width: 1100px) {
-  .bastel-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 800px) {
-  .bastel-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 520px) {
-  .bastel-grid { grid-template-columns: 1fr; }
-}
-
-/* Karte/Tile */
-.bastel-card {
+/* Grund-Kachel */
+.tile {
+  grid-column: span 4;                   /* Standardbreite: 4/12 */
   background: var(--card);
   border: 1px solid #0001;
   border-radius: var(--radius);
-  box-shadow: 0 8px 22px #00000012;
   overflow: clip;
+  box-shadow: 0 8px 22px #00000012;
+  transition: transform .12s ease, box-shadow .12s ease;
   display: flex;
   flex-direction: column;
-  transition: transform .12s ease, box-shadow .12s ease;
 }
 
-.bastel-card:hover,
-.bastel-card:focus-within {
+.tile:hover,
+.tile:focus-within {
   transform: translateY(-2px);
   box-shadow: 0 12px 26px #0000001a;
 }
 
-.bastel-card img {
-  width: 100%;
-  height: clamp(160px, 22vw, 240px);
-  object-fit: cover;
-  display: block;
-  background: #fff;
+/* Breite Variante (z. B. Panorama) */
+.tile--wide { 
+  grid-column: span 6;                   /* 6/12 -> doppelt so breit */
 }
 
-.bastel-card figcaption {
+/* Bilddarstellung */
+.tile img {
+  width: 100%;
+  height: auto;                          /* Fallback */
+  display: block;
+  object-fit: cover;
+}
+
+/* Feste Seitenverhältnisse für ruhiges Raster */
+.tile--ratio-wide   img { aspect-ratio: 16 / 9; }
+.tile--ratio-square img { aspect-ratio: 1 / 1;  }
+.tile--ratio-tall   img { aspect-ratio: 3 / 4;  }
+
+/* Beschriftung */
+.tile figcaption {
   padding: 12px 14px;
   font-weight: 600;
+  text-align: left;
   color: var(--fg);
-  text-align: center;
 }
 
-/* Platzhalter, wenn noch kein Bild vorhanden ist */
-.bastel-card.is-placeholder .placeholder {
-  height: clamp(160px, 22vw, 240px);
-  display: grid;
-  place-items: center;
-  background:
-    repeating-linear-gradient(135deg, #ffffff, #ffffff 12px, #f1ede7 12px, #f1ede7 24px);
-  color: var(--muted);
-  font-weight: 700;
-  letter-spacing: .02em;
-  border-bottom: 1px solid #0001;
+/* Responsive */
+@media (max-width: 1100px) {
+  .tile { grid-column: span 6; }         /* 2 Spalten */
+  .tile--wide { grid-column: span 12; }  /* volle Breite */
 }
 
-/* Kleine Utilitys für bessere Abstände auf sehr kleinen Screens */
-@media (max-width: 380px) {
-  .bastel-card figcaption { font-size: .98rem; padding: 10px 12px; }
+@media (max-width: 640px) {
+  .gallery-grid { gap: 14px; }
+  .tile, .tile--wide { grid-column: span 12; } /* 1 Spalte */
+  .tile figcaption { font-size: .98rem; }
 }
