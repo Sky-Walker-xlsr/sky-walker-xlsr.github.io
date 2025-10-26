@@ -113,3 +113,10 @@
   .tile, .tile--wide { grid-column: span 12; } /* 1 Spalte */
   .tile figcaption { font-size: .98rem; }
 }
+
+/* ——— Mobile: About-Image ausblenden ——— */
+@media (max-width: 768px) {
+  .about-image {
+    display: none;
+  }
+}
