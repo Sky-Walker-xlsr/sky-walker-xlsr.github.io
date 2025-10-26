@@ -58,11 +58,12 @@
   background: var(--card);
   border: 1px solid #0001;
   border-radius: var(--radius);
-  overflow: clip;
+  overflow: hidden;
   box-shadow: 0 8px 22px #00000012;
   transition: transform .12s ease, box-shadow .12s ease;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
 }
 
 .tile:hover,
@@ -82,12 +83,14 @@
   height: auto;                          /* Fallback */
   display: block;
   object-fit: cover;
+  aspect-ratio: auto;
 }
 
-/* Feste Seitenverhältnisse für ruhiges Raster */
+/* Feste Seitenverhältnisse für ruhiges Raster 
 .tile--ratio-wide   img { aspect-ratio: 16 / 9; }
 .tile--ratio-square img { aspect-ratio: 1 / 1;  }
 .tile--ratio-tall   img { aspect-ratio: 3 / 4;  }
+*/
 
 /* Beschriftung */
 .tile figcaption {
@@ -95,6 +98,8 @@
   font-weight: 600;
   text-align: left;
   color: var(--fg);
+  flex: 0 0 auto;           /* verhindert, dass Caption in der Höhe gestreckt wird */
+  background: var(--card);
 }
 
 /* Responsive */
