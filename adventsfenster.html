@@ -165,9 +165,9 @@
       { tag: 18, name: "Familie Tschumi", adresse: "Lindenbergstrasse 16", umtrunk: "Mit Umtrunk" },
       { tag: 19, name: "Familie Widmer", adresse: "Zelgli 10", umtrunk: "" },
       { tag: 20, name: "Regula Keller (Wollzimmer)", adresse: "Nadelbandweg 3", umtrunk: "Mit Umtrunk" },
-      { tag: 21, name: "Verfügbar", adresse: "", umtrunk: "" },
-      { tag: 22, name: "Verfügbar", adresse: "", umtrunk: "" },
-      { tag: 23, name: "Verfügbar", adresse: "", umtrunk: "" },
+      { tag: 21, name: "Dilara Keusch & Pascal Sax", adresse: "Naglerweg 2", umtrunk: "Mit Umtrunk" },
+      { tag: 22, name: "Familie Salm", adresse: "Rosenweg 1", umtrunk: "" },
+      { tag: 23, name: "Priska Stadelmann & Tobias Burgener", adresse: "Brunnmattstrasse 12", umtrunk: "Mit Umtrunk" },
       { tag: 24, name: "Kirche", adresse: "Kaplaneiweg 2", umtrunk: "" }
     ];
 
@@ -208,6 +208,32 @@
       e.preventDefault();
       toggleCard(card);
     });
+    
+    // --- Ausklappbare Gesamtliste unterhalb der Kacheln ---
+    const listContainer = document.createElement('div');
+    listContainer.innerHTML = `
+      <button id="toggleList" class="list-toggle">Gesamte Liste anzeigen ▼</button>
+      <div id="adv-list" class="adv-list" style="display:none; margin-top:1rem;">
+        <ul style="list-style:none; padding:0;">
+          ${data.map(f => `
+            <li style="padding:6px 0; border-bottom:1px solid #ddd;">
+              <strong>${f.tag}.</strong> ${f.name} – ${f.adresse} ${f.umtrunk ? `(${f.umtrunk})` : ''}
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    `;
+    grid.insertAdjacentElement('afterend', listContainer);
+
+    // Toggle-Funktion für die Liste
+    const toggleBtn = document.getElementById('toggleList');
+    const advList = document.getElementById('adv-list');
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = advList.style.display === 'none';
+      advList.style.display = isHidden ? 'block' : 'none';
+      toggleBtn.textContent = isHidden ? 'Gesamte Liste ausblenden ▲' : 'Gesamte Liste anzeigen ▼';
+    });
+
   </script>
 </body>
 
