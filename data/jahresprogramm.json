@@ -1,0 +1,37 @@
+{
+  "updated_at": "2025-12-16",
+  "events": [
+    {
+      "date_iso": "2025-12-01",
+      "title_date": "1. bis 24. Dezember 2025",
+      "text_html": "Adventsfenster – jeden Tag ein anderes Fenster mit oder ohne Umtrunk.<br />Anmeldung Fenster bei Nicole Salm, Tel. 079 512 54 59<br />Hier kannst du sehen an welchen Orten ein <a href=\"https://frauenverein-sarmenstorf.ch/adventsfenster.html\">Adventsfenster</a> sein wird.",
+      "date_label": "1.–24. Dezember 2025"
+    },
+    {
+      "date_iso": "2025-12-28",
+      "title_date": "Sonntag, 28. Dezember 2025",
+      "text_html": "Adventsfensterrundgang",
+      "date_label": "28. Dezember 2025"
+    },
+    {
+      "date_iso": "2026-01-13",
+      "title_date": "Dienstag, 13. Januar 2026",
+      "text_html": "Filmabend im Pfarreitreff",
+      "date_label": "13. Januar 2026",
+      "time": "20:00"
+    },
+    {
+      "date_iso": "2026-03-06",
+      "title_date": "Freitag, 6. März 2026",
+      "text_html": "Preisjassen",
+      "date_label": "6. März 2026",
+      "time": "19:00"
+    },
+    {
+      "date_iso": "2026-03-20",
+      "title_date": "Freitag, 20. März 2026",
+      "text_html": "Generalversammlung",
+      "date_label": "20. März 2026"
+    }
+  ]
+}
