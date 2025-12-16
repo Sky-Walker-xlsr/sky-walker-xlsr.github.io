@@ -48,7 +48,6 @@
         <h3>${ev.title_date || ''}</h3>
         ${metaLine}
         ${ev.text_html ? `<p>${ev.text_html}</p>` : ''}
-        ${ev.date_label ? `<p><strong>Datum:</strong> ${ev.date_label}</p>` : ''}
         ${timeLine}
       `;
 
