@@ -58,3 +58,5 @@
     listEl.innerHTML = '<p>Jahresprogramm konnte nicht geladen werden.</p>';
   }
 })();
+
+// test zum refresh
