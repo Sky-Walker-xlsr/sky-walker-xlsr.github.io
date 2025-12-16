@@ -340,3 +340,7 @@ body.no-scroll {
 .event-iso { 
   display: none !important; 
 }
+
+.spacer {
+  height: 30px;
+}
