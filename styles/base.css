@@ -336,3 +336,7 @@ body.no-scroll {
   font-size: .8rem;
   color: #666
 }
+
+.event-iso { 
+  display: none !important; 
+}
