@@ -2,7 +2,6 @@
   const listEl = document.getElementById('events-list');
   if (!listEl) return;
 
-  // optionales Limit aus dem HTML (data-limit="3")
   const limitAttr = listEl.getAttribute('data-limit');
   const limit = limitAttr ? parseInt(limitAttr, 10) : null;
 
@@ -20,10 +19,8 @@
     const todayIso = new Date().toISOString().slice(0, 10); // YYYY-MM-DD
     events = events.filter(ev => (ev.date_iso || '') >= todayIso);
 
-    // falls data-limit gesetzt ist: nur die nächsten X Events
-    if (limit && limit > 0) {
-      events = events.slice(0, limit);
-    }
+    // Limit (Index/Anlässe)
+    if (limit && limit > 0) events = events.slice(0, limit);
 
     listEl.innerHTML = '';
 
@@ -36,8 +33,12 @@
       const card = document.createElement('div');
       card.className = 'event-card';
 
-      // ISO nur für Sortierung/Debug als Attribut, NICHT sichtbar
+      // ISO nur für Ordnung/Debug als Attribut, NICHT sichtbar
       if (ev.date_iso) card.setAttribute('data-date', ev.date_iso);
+
+      const metaLine = ev.meta
+        ? `<div class="meta">${ev.meta}</div>`
+        : '';
 
       const timeLine = ev.time
         ? `<p><strong>Uhrzeit:</strong> ${ev.time} Uhr</p>`
@@ -45,7 +46,8 @@
 
       card.innerHTML = `
         <h3>${ev.title_date || ''}</h3>
-        <p>${ev.text_html || ''}</p>
+        ${metaLine}
+        ${ev.text_html ? `<p>${ev.text_html}</p>` : ''}
         ${ev.date_label ? `<p><strong>Datum:</strong> ${ev.date_label}</p>` : ''}
         ${timeLine}
       `;

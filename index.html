@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="de">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,6 +9,7 @@
   <link rel="stylesheet" href="./styles/base.css" />
   <link rel="stylesheet" href="./styles/index.css" />
 </head>
+
 <body>
 
   <header class="site-header">
@@ -34,8 +36,8 @@
         </ul>
       </nav>
 
-      <button class="nav-toggle" id="navToggle" type="button"
-              aria-label="Menü öffnen" aria-controls="mobileOverlay" aria-expanded="false">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen" aria-controls="mobileOverlay"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -80,31 +82,23 @@
     <section class="events section">
       <div class="container">
         <h2>Unsere nächsten Anlässe:</h2>
-        <div class="events-grid">
-          <div class="event-card">
-            <h3>1. bis 24. Dezember 2025</h3>
-            <p>Adventsfenster – jeden Tag ein anderes Fenster mit oder ohne Umtrunk.<br />
-              Anmeldung Fenster bei Nicole Salm, Tel. 079 512 54 59 <br />
-              Hier kannst du sehen an welchen Orten ein <a href="https://frauenverein-sarmenstorf.ch/adventsfenster.html">Adventsfenster</a> sein wird.
-            </p>
-            <p><strong>Datum:</strong> 1.–24. Dezember 2025</p>
-          </div>
-          <div class="event-card">
-            <h3>Sonntag, 28. Dezember 2025</h3>
-            <p>Adventsfensterrundgang</p>
-            <p><strong>Datum:</strong> 28. Dezember 2025</p>
-          </div>
-        </div>
+
+        <div class="events-grid" id="events-list" data-limit="2"></div>
+
         <div class="spacer"></div>
         <a class="button center" href="./jahresprogramm.html">Jahresprogramm</a>
       </div>
     </section>
 
+    <script src="/js/jahresprogramm.js"></script>
+
+
     <section class="about section">
       <div class="container about-inner">
         <div class="about-text">
           <h2>Über uns</h2>
-          <p>Der Frauenverein Sarmenstorf engagiert sich seit vielen Jahren für Gemeinschaft, Kultur und Begegnung im Dorf. Wir organisieren Anlässe, unterstützen Projekte und pflegen das Miteinander.</p>
+          <p>Der Frauenverein Sarmenstorf engagiert sich seit vielen Jahren für Gemeinschaft, Kultur und Begegnung im
+            Dorf. Wir organisieren Anlässe, unterstützen Projekte und pflegen das Miteinander.</p>
           <a class="button ghost" href="./ueber-uns.html">Mehr erfahren</a>
         </div>
         <div class="about-image">
@@ -125,7 +119,8 @@
   <footer class="site-footer">
     <div class="container footer-grid">
       <div><strong>Frauenverein Sarmenstorf</strong><br>5614 Sarmenstorf</div>
-      <div><strong>Kontakt</strong><br><a href="mailto:kontakt@frauenverein-sarmenstorf.ch">kontakt@frauenverein-sarmenstorf.ch</a></div>
+      <div><strong>Kontakt</strong><br><a
+          href="mailto:kontakt@frauenverein-sarmenstorf.ch">kontakt@frauenverein-sarmenstorf.ch</a></div>
       <div><strong>Folgen</strong></div>
     </div>
     <div class="container legal">© <span id="year"></span> Frauenverein Sarmenstorf</div>
@@ -168,4 +163,5 @@
     })();
   </script>
 </body>
+
 </html>
