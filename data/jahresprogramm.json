@@ -5,7 +5,8 @@
       "date_iso": "2025-12-24",
       "title_date": "Adventsfenster (1. bis 24. Dezember 2025)",
       "text_html": "Jeden Tag ein anderes Fenster mit oder ohne Umtrunk.<br />Hier kannst du sehen an welchen Orten ein <a href=\"https://frauenverein-sarmenstorf.ch/adventsfenster.html\">Adventsfenster</a> sein wird.",
-      "date_label": "1.–24. Dezember 2025"
+      "date_label": "1.–24. Dezember 2025",
+      "time": "18:00"
     },
     {
       "date_iso": "2025-12-28",
@@ -16,7 +17,7 @@
     {
       "date_iso": "2026-01-13",
       "title_date": "Filmabend im Pfarreitreff (13. Januar 2026)",
-      "text_html": "Gemütlicher Filmabend im Pfarreitreff mit gemeinsamem Filmschauen in entspannter Atmosphäre. Weitere Informationen folgen.",
+      "text_html": "Gemütlicher Filmabend im Pfarreitreff mit gemeinsamem Filmschauen in entspannter Atmosphäre.<br />Für Getränke und Snacks ist gesorgt. Ihr müsst nichts mitbringen.",
       "date_label": "13. Januar 2026",
       "time": "20:00"
     },
