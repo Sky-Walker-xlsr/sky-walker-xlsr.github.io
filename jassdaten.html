@@ -69,32 +69,25 @@
   </nav>
 
   <main>
-    <section class="ueber-uns">
-      <div class="container text-center">
-        <h1>Jassdaten</h1>
-        <p>Jassdaten des Frauenvereins von 2026 Beginn 19.30 Uhr</p>
+    <section class="jassdaten">
+      <h1>Jassdaten 2026</h1>
+      <p class="jassdaten-sub">Beginn 19.30 Uhr</p>
 
-        <p>Ab Januar 2026 finden die Jassrunden des Frauenvereins wieder abwechslungsweise im Kreuz und Post statt.</p>
-
-      </div>
-      <div class="jassdaten">
-        <p>
-            Donnerstag, 08.01.26, Rest. Post<br />
-            Mittwoch, 04.02.26, Rest. Kreuz<br />
-            Donnerstag, 05.03.26, Rest. Post<br />
-            Mittwoch, 01.04.26, Rest. Kreuz<br />
-            Donnerstag, 07.05.26, Rest. Post<br />
-            Mittwoch, 03.06.26, Rest. Kreuz<br />
-            Donnerstag, 02.07.26, Rest. Post<br />
-            Mittwoch, 12.08.26, Rest. Kreuz (Ferien)<br />
-            Donnerstag, 03.09.26, Rest. Post<br />
-            Mittwoch, 07.10.26, Rest. Kreuz<br />
-            Donnerstag, 05.11.26, Rest. Post<br />
-            Mittwoch, 02.12.26, Rest. Kreuz
-
-        </p>
+      <div class="jassdaten-table-wrap">
+        <table class="jassdaten-table" id="jassTable">
+          <thead>
+            <tr>
+              <th data-sort="date" class="is-sortable" aria-sort="ascending">Datum</th>
+              <th data-sort="weekday" class="is-sortable" aria-sort="none">Wochentag</th>
+              <th data-sort="location" class="is-sortable" aria-sort="none">Restaurant</th>
+              <th data-sort="note" class="is-sortable" aria-sort="none">Hinweis</th>
+            </tr>
+          </thead>
+          <tbody id="jassTbody"></tbody>
+        </table>
       </div>
     </section>
+
 
   </main>
 
@@ -111,37 +104,81 @@
   </footer>
 
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    const baseDates2026 = [
+      { date: "08.01.26", note: "" },
+      { date: "04.02.26", note: "" },
+      { date: "05.03.26", note: "" },
+      { date: "01.04.26", note: "" },
+      { date: "07.05.26", note: "" },
+      { date: "03.06.26", note: "" },
+      { date: "02.07.26", note: "" },
+      { date: "12.08.26", note: "Ferien" },
+      { date: "03.09.26", note: "" },
+      { date: "07.10.26", note: "" },
+      { date: "05.11.26", note: "" },
+      { date: "02.12.26", note: "" }
+    ];
 
-    (function () {
-      const btn = document.getElementById('navToggle');
-      const overlay = document.getElementById('mobileOverlay');
-      const closeBtn = document.getElementById('overlayClose');
+    function buildEntries(dates) {
+      return dates.map((item, i) => ({
+        date: item.date,
+        weekday: i % 2 === 0 ? "Donnerstag" : "Mittwoch",
+        location: i % 2 === 0 ? "Rest. Post" : "Rest. Kreuz",
+        note: item.note || ""
+      }));
+    }
 
-      function openNav() {
-        overlay.classList.add('open');
-        btn.classList.add('is-open');
-        btn.setAttribute('aria-expanded', 'true');
-        overlay.setAttribute('aria-hidden', 'false');
-        document.body.classList.add('no-scroll');
-      }
-      function closeNav() {
-        overlay.classList.remove('open');
-        btn.classList.remove('is-open');
-        btn.setAttribute('aria-expanded', 'false');
-        overlay.setAttribute('aria-hidden', 'true');
-        document.body.classList.remove('no-scroll');
-      }
+    const entries = buildEntries(baseDates2026);
+    const tbody = document.getElementById("jassTbody");
+    const headers = document.querySelectorAll(".jassdaten-table th.is-sortable");
 
-      btn.addEventListener('click', () => (overlay.classList.contains('open') ? closeNav() : openNav()));
-      closeBtn.addEventListener('click', closeNav);
-      overlay.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
-      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
-      window.addEventListener('resize', () => {
-        if (window.matchMedia('(min-width:851px)').matches) closeNav();
+    const state = { sortKey: "date", sortDir: "asc" };
+
+    function parseDateCH(v) {
+      const [d, m, y] = v.split(".");
+      return new Date(2000 + Number(y), Number(m) - 1, Number(d));
+    }
+
+    function compare(a, b, key) {
+      if (key === "date") return parseDateCH(a.date) - parseDateCH(b.date);
+      return a[key].localeCompare(b[key], "de-CH", { sensitivity: "base" });
+    }
+
+    function render() {
+      const sorted = [...entries].sort((a, b) => {
+        const r = compare(a, b, state.sortKey);
+        return state.sortDir === "asc" ? r : -r;
       });
-    })();
+
+      tbody.innerHTML = sorted.map(e => `
+    <tr class="${e.weekday === "Mittwoch" ? "row-mittwoch" : "row-donnerstag"}">
+      <td>${e.date}</td>
+      <td><span class="badge ${e.weekday === "Mittwoch" ? "badge-mittwoch" : "badge-donnerstag"}">${e.weekday}</span></td>
+      <td>${e.location}</td>
+      <td>${e.note || "–"}</td>
+    </tr>
+  `).join("");
+
+      headers.forEach(h => {
+        const key = h.dataset.sort;
+        h.classList.toggle("sort-asc", key === state.sortKey && state.sortDir === "asc");
+        h.classList.toggle("sort-desc", key === state.sortKey && state.sortDir === "desc");
+        h.setAttribute("aria-sort", key === state.sortKey ? (state.sortDir === "asc" ? "ascending" : "descending") : "none");
+      });
+    }
+
+    headers.forEach(h => {
+      h.addEventListener("click", () => {
+        const key = h.dataset.sort;
+        state.sortDir = state.sortKey === key && state.sortDir === "asc" ? "desc" : "asc";
+        state.sortKey = key;
+        render();
+      });
+    });
+
+    render();
   </script>
+
 </body>
 
 </html>
