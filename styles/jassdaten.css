@@ -1,0 +1,8 @@
+.jassdaten {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* vertikal zentriert */
+  align-items: center;     /* horizontal zentriert */
+  text-align: center;
+}
