@@ -44,49 +44,31 @@
 
 /* Freizeitplausch – Modern Minimal Form */
 
-:root{
-  --bg: #0b0c10;
-  --card: #0f1117;
-  --text: #e7e7e7;
-  --muted: rgba(231,231,231,.65);
-  --line: rgba(231,231,231,.22);
-  --line2: rgba(231,231,231,.12);
-  --accent: #27d17c;
-  --accent2: #1fb86c;
-  --danger: #ff5c5c;
-}
-
-body{
-  margin: 0;
-  background: radial-gradient(1200px 600px at 30% -10%, rgba(39,209,124,.18), transparent 55%),
-              radial-gradient(900px 500px at 90% 10%, rgba(39,209,124,.10), transparent 55%),
-              var(--bg);
-  color: var(--text);
-  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-}
+/* Freizeitplausch – Modern (Site Colors via base.css) */
 
 .fp-form{
   width: min(880px, calc(100% - 32px));
   margin: 48px auto;
   padding: 34px 34px 28px;
-  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
-  border: 1px solid rgba(255,255,255,.08);
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.45);
-  backdrop-filter: blur(10px);
+  background: #fff;
+  border-radius: var(--radius);
+  border: 1px solid rgba(62,58,54,.12);
+  box-shadow: 0 16px 40px rgba(62,58,54,.10);
+  color: var(--fg);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
 .fp-title{
   margin: 0 0 26px;
   text-align: center;
   font-size: 28px;
-  letter-spacing: .4px;
-  font-weight: 650;
+  letter-spacing: .2px;
+  font-weight: 750;
 }
 
 .fp-section{
   padding: 18px 0 22px;
-  border-top: 1px solid var(--line2);
+  border-top: 1px solid rgba(62,58,54,.12);
 }
 
 .fp-section:first-of-type{
@@ -98,10 +80,10 @@ body{
   margin: 0 0 14px;
   text-align: center;
   font-size: 14px;
-  letter-spacing: 1.8px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--muted);
-  font-weight: 650;
+  font-weight: 750;
 }
 
 /* Offers list */
@@ -115,58 +97,56 @@ body{
   grid-template-columns: 1fr auto;
   align-items: center;
   gap: 14px;
-  padding: 10px 8px;
-  border-bottom: 1px solid var(--line2);
-}
-
-.fp-offer:last-child{
-  border-bottom: none;
+  padding: 12px 14px;
+  border-radius: calc(var(--radius) - 4px);
+  background: var(--bg);
+  border: 1px solid rgba(62,58,54,.12);
 }
 
 .fp-offer-name{
   font-size: 15px;
-  font-weight: 560;
-  color: rgba(231,231,231,.92);
+  font-weight: 650;
+  color: var(--fg);
 }
 
-/* Counter */
-.fp-counter{
-  display: grid;
-  grid-auto-flow: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.fp-counter input{
-  width: 64px;
-  text-align: center;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--line);
-  padding: 8px 0 6px;
-  color: var(--text);
-  font-size: 15px;
-  outline: none;
-}
-
-.fp-btn{
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.04);
-  color: var(--text);
+/* Radio styling */
+.fp-radio{
   cursor: pointer;
-  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+  user-select: none;
 }
 
-.fp-btn:hover{
-  background: rgba(255,255,255,.07);
-  border-color: rgba(255,255,255,.20);
+.fp-radio input[type="radio"]{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.fp-btn:active{
-  transform: translateY(1px);
+.fp-radio-ui{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  border: 2px solid rgba(62,58,54,.35);
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.fp-radio input[type="radio"]:checked + .fp-radio-ui{
+  border-color: var(--brand);
+}
+
+.fp-radio input[type="radio"]:checked + .fp-radio-ui::after{
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 999px;
+  background: var(--brand);
+}
+
+.fp-radio:focus-within{
+  outline: 2px solid rgba(214,40,40,.25);
+  outline-offset: 2px;
 }
 
 /* Rows & fields */
@@ -195,37 +175,37 @@ body{
   letter-spacing: 1.4px;
   text-transform: uppercase;
   color: var(--muted);
-  font-weight: 650;
+  font-weight: 750;
 }
 
 .fp-field input{
   background: transparent;
   border: none;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid rgba(62,58,54,.25);
   padding: 10px 2px 8px;
-  color: var(--text);
+  color: var(--fg);
   font-size: 15px;
   outline: none;
   transition: border-color .15s ease;
 }
 
 .fp-field input::placeholder{
-  color: rgba(231,231,231,.35);
+  color: rgba(122,111,103,.65);
 }
 
 .fp-field input:focus{
-  border-bottom-color: rgba(39,209,124,.75);
+  border-bottom-color: var(--brand);
 }
 
-/* Checkboxes */
+/* Checkbox cards */
 .fp-check{
   display: inline-flex;
   align-items: center;
   gap: 10px;
   padding: 10px 12px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.03);
+  border-radius: calc(var(--radius) - 4px);
+  border: 1px solid rgba(62,58,54,.12);
+  background: var(--bg);
   cursor: pointer;
   user-select: none;
 }
@@ -233,12 +213,12 @@ body{
 .fp-check input{
   width: 16px;
   height: 16px;
-  accent-color: var(--accent);
+  accent-color: var(--brand);
 }
 
 .fp-check span{
   font-size: 14px;
-  color: rgba(231,231,231,.9);
+  color: var(--fg);
 }
 
 /* Submit button */
@@ -249,18 +229,18 @@ body{
   padding: 12px 22px;
   border: none;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--accent), var(--accent2));
-  color: #08110c;
-  font-weight: 750;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
   letter-spacing: 1.1px;
   text-transform: uppercase;
   cursor: pointer;
-  box-shadow: 0 14px 35px rgba(39,209,124,.25);
+  box-shadow: 0 14px 30px rgba(214,40,40,.22);
   transition: transform .08s ease, filter .2s ease;
 }
 
 .fp-submit:hover{
-  filter: brightness(1.05);
+  filter: brightness(1.03);
 }
 
 .fp-submit:active{
@@ -279,11 +259,6 @@ body{
   }
 
   .fp-offer{
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-
-  .fp-counter{
-    justify-content: start;
+    grid-template-columns: 1fr auto;
   }
 }

@@ -81,80 +81,56 @@
           <h2 class="fp-title">Freizeitplausch Anmeldung</h2>
 
           <section class="fp-section">
-            <h3 class="fp-section-title">Angebote (mindestens 1)</h3>
+            <h3 class="fp-section-title">Angebote (genau 1)</h3>
 
             <div class="fp-offers">
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">1 – Turnen</div>
                 </div>
+                <input type="radio" name="angebot" value="1 – Turnen" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
 
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_1" aria-label="Minus">-</button>
-                  <input id="angebot_1" name="angebot_1" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_1" aria-label="Plus">+</button>
-                </div>
-              </div>
-
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">2 – Adventure</div>
                 </div>
+                <input type="radio" name="angebot" value="2 – Adventure" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
 
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_2" aria-label="Minus">-</button>
-                  <input id="angebot_2" name="angebot_2" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_2" aria-label="Plus">+</button>
-                </div>
-              </div>
-
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">3 – Falkner</div>
                 </div>
+                <input type="radio" name="angebot" value="3 – Falkner" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
 
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_3" aria-label="Minus">-</button>
-                  <input id="angebot_3" name="angebot_3" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_3" aria-label="Plus">+</button>
-                </div>
-              </div>
-
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">4 – Ruckli</div>
                 </div>
+                <input type="radio" name="angebot" value="4 – Ruckli" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
 
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_4" aria-label="Minus">-</button>
-                  <input id="angebot_4" name="angebot_4" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_4" aria-label="Plus">+</button>
-                </div>
-              </div>
-
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">5 – Lettering</div>
                 </div>
+                <input type="radio" name="angebot" value="5 – Lettering" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
 
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_5" aria-label="Minus">-</button>
-                  <input id="angebot_5" name="angebot_5" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_5" aria-label="Plus">+</button>
-                </div>
-              </div>
-
-              <div class="fp-offer">
+              <label class="fp-offer fp-radio">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">6 – Dinos</div>
                 </div>
-
-                <div class="fp-counter">
-                  <button type="button" class="fp-btn fp-minus" data-target="angebot_6" aria-label="Minus">-</button>
-                  <input id="angebot_6" name="angebot_6" type="number" value="0" min="0" readonly>
-                  <button type="button" class="fp-btn fp-plus" data-target="angebot_6" aria-label="Plus">+</button>
-                </div>
-              </div>
+                <input type="radio" name="angebot" value="6 – Dinos" required>
+                <span class="fp-radio-ui" aria-hidden="true"></span>
+              </label>
             </div>
           </section>
 
@@ -301,67 +277,42 @@
   </script>
 
 
-<!-- Script für Anmeldeformular -->
+  <!-- Script für Anmeldeformular -->
   <script>
-  const angebotIds = ["angebot_1","angebot_2","angebot_3","angebot_4","angebot_5","angebot_6"];
+    function buildSummary() {
+      const lines = [];
 
-  document.addEventListener("click", (e) => {
-    if (e.target.matches(".fp-plus, .fp-minus")) {
-      const id = e.target.getAttribute("data-target");
-      const input = document.getElementById(id);
-      let val = parseInt(input.value || "0", 10);
+      const angebot = document.querySelector('input[name="angebot"]:checked')?.value || "—";
+      lines.push("Angebot:");
+      lines.push(`- ${angebot}`);
 
-      if (e.target.classList.contains("fp-plus")) val += 1;
-      if (e.target.classList.contains("fp-minus")) val = Math.max(0, val - 1);
+      lines.push("");
+      lines.push("Kind:");
+      lines.push(`- ${document.querySelector('input[name="kind_name"]').value} (Klasse: ${document.querySelector('input[name="kind_klasse"]').value})`);
 
-      input.value = val;
+      lines.push("");
+      lines.push("Kontakt:");
+      lines.push(`- Adresse: ${document.querySelector('input[name="adresse"]').value}`);
+      lines.push(`- Name Eltern: ${document.querySelector('input[name="name_eltern"]').value}`);
+      lines.push(`- Telefon: ${document.querySelector('input[name="telefon"]').value}`);
+      lines.push(`- E-Mail: ${document.querySelector('input[name="email"]').value}`);
+
+      const taxiChecked = [...document.querySelectorAll('input[name="elterntaxi"]:checked')].map(x => x.value);
+      const taxiPlaetze = document.querySelector('input[name="taxi_plaetze"]').value;
+
+      lines.push("");
+      lines.push("Elterntaxi (freiwillig):");
+      lines.push(`- Angebote: ${taxiChecked.length ? taxiChecked.join(", ") : "—"}`);
+      lines.push(`- Plätze: ${taxiPlaetze ? taxiPlaetze : "—"}`);
+
+      return lines.join("\n");
     }
-  });
 
-  function buildSummary() {
-    const lines = [];
-
-    lines.push("Angebote:");
-    angebotIds.forEach((id, idx) => {
-      const v = parseInt(document.getElementById(id).value || "0", 10);
-      if (v > 0) lines.push(`- Angebot ${idx + 1}: ${v}`);
+    document.getElementById("freizeitplauschForm").addEventListener("submit", (e) => {
+      // Radio hat required, Kind/Kontakt haben required, darum keine Extra-Checks nötig.
+      document.getElementById("summary").value = buildSummary();
     });
-
-    lines.push("");
-    lines.push("Kind:");
-    lines.push(`- ${document.querySelector('input[name="kind_name"]').value} (Klasse: ${document.querySelector('input[name="kind_klasse"]').value})`);
-
-    lines.push("");
-    lines.push("Kontakt:");
-    lines.push(`- Adresse: ${document.querySelector('input[name="adresse"]').value}`);
-    lines.push(`- Name Eltern: ${document.querySelector('input[name="name_eltern"]').value}`);
-    lines.push(`- Telefon: ${document.querySelector('input[name="telefon"]').value}`);
-    lines.push(`- E-Mail: ${document.querySelector('input[name="email"]').value}`);
-
-    const taxiChecked = [...document.querySelectorAll('input[name="elterntaxi"]:checked')].map(x => x.value);
-    const taxiPlaetze = document.querySelector('input[name="taxi_plaetze"]').value;
-
-    lines.push("");
-    lines.push("Elterntaxi (freiwillig):");
-    lines.push(`- Angebote: ${taxiChecked.length ? taxiChecked.join(", ") : "—"}`);
-    lines.push(`- Plätze: ${taxiPlaetze ? taxiPlaetze : "—"}`);
-
-    return lines.join("\n");
-  }
-
-  document.getElementById("freizeitplauschForm").addEventListener("submit", (e) => {
-    let total = 0;
-    angebotIds.forEach(id => total += parseInt(document.getElementById(id).value || "0", 10));
-
-    if (total < 1) {
-      alert("Bitte mindestens ein Angebot auswählen.");
-      e.preventDefault();
-      return;
-    }
-
-    document.getElementById("summary").value = buildSummary();
-  });
-</script>
+  </script>
 </body>
 
 </html>
