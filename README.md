@@ -1,3 +1,2 @@
 # sky-walker-xlsr.github.io
-priv repo für tests
-update
+Prod Repo für frauenverein-sarmenstof.ch
