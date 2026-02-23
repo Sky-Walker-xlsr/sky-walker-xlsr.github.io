@@ -339,148 +339,87 @@
 
   <!-- Script für Anmeldeformular -->
   <script>
-  const form = document.getElementById("freizeitplauschForm");
+    const form = document.getElementById("freizeitplauschForm");
+    const summaryField = document.getElementById("summary");
+    const consentCheckbox = document.getElementById("consent");
+    const consentField = document.getElementById("einverstandenField");
 
-  // Helfer: Werte holen (über IDs)
-  const $ = (id) => document.getElementById(id);
+    function buildSummary() {
+      const lines = [];
 
-  function hasAtLeastOneOffer() {
-    return document.querySelectorAll('input[name="angebote[]"]:checked').length > 0;
-  }
+      const angebote = [...document.querySelectorAll('input[name="angebote[]"]:checked')].map(x => x.value);
+      lines.push("Angebote:");
+      lines.push(angebote.length ? angebote.map(a => `- ${a}`).join("\n") : "- —");
 
-  function buildSummary() {
-    const lines = [];
+      lines.push("");
+      lines.push("Kind:");
+      lines.push(`- ${document.querySelector('input[name="kind_name"]').value} (Klasse: ${document.querySelector('input[name="kind_klasse"]').value})`);
 
-    const angebote = [...document.querySelectorAll('input[name="angebote[]"]:checked')].map(x => x.value);
-    lines.push("Angebote:");
-    lines.push(angebote.length ? angebote.map(a => `- ${a}`).join("\n") : "- —");
+      lines.push("");
+      lines.push("Kontakt:");
+      lines.push(`- Adresse: ${document.querySelector('input[name="adresse"]').value}`);
+      lines.push(`- Name Eltern: ${document.querySelector('input[name="name_eltern"]').value}`);
+      lines.push(`- Telefon: ${document.querySelector('input[name="telefon"]').value}`);
+      lines.push(`- E-Mail: ${document.querySelector('input[name="email"]').value}`);
 
-    lines.push("");
-    lines.push("Kind:");
-    lines.push(`- ${$("kind_name").value} (Klasse: ${$("kind_klasse").value})`);
+      const taxiChecked = [...document.querySelectorAll('input[name="elterntaxi"]:checked')].map(x => x.value);
+      const taxiPlaetze = document.querySelector('input[name="taxi_plaetze"]').value;
 
-    lines.push("");
-    lines.push("Kontakt:");
-    lines.push(`- Adresse: ${$("adresse").value}`);
-    lines.push(`- Name Eltern: ${$("name_eltern").value}`);
-    lines.push(`- Telefon: ${$("telefon").value}`);
-    lines.push(`- E-Mail: ${$("email").value}`);
+      lines.push("");
+      lines.push("Elterntaxi (freiwillig):");
+      lines.push(`- Angebote: ${taxiChecked.length ? taxiChecked.join(", ") : "—"}`);
+      lines.push(`- Plätze: ${taxiPlaetze ? taxiPlaetze : "—"}`);
 
-    const taxiChecked = [...document.querySelectorAll('input[name="elterntaxi"]:checked')].map(x => x.value);
-    const taxiPlaetze = ($("taxi_plaetze") ? $("taxi_plaetze").value : "");
+      return lines.join("\n");
+    }
 
-    lines.push("");
-    lines.push("Elterntaxi (freiwillig):");
-    lines.push(`- Angebote: ${taxiChecked.length ? taxiChecked.join(", ") : "—"}`);
-    lines.push(`- Plätze: ${taxiPlaetze ? taxiPlaetze : "—"}`);
+    function hasAtLeastOneOffer() {
+      return document.querySelectorAll('input[name="angebote[]"]:checked').length > 0;
+    }
 
-    return lines.join("\n");
-  }
+    form.addEventListener("submit", (e) => {
 
-  async function submitToFormspreeOnlyEmailAndMessage() {
-    const endpoint = form.action;
+      if (!hasAtLeastOneOffer()) {
+        alert("Bitte mindestens ein Angebot auswählen.");
+        e.preventDefault();
+        return;
+      }
 
-    const emailValue = $("email").value.trim();
-    const messageValue = buildSummary();
+      if (!consentCheckbox.checked) {
+        alert("Bitte bestätige die Einverständniserklärung.");
+        e.preventDefault();
+        return;
+      }
 
-    // Optional: subject setzen
-    const subjectValue = "Neue Anmeldung Freizeitplausch";
+      // Einverständnis korrekt an Formspree senden
+      consentField.value = "ja";
 
-    // Einverstanden explizit als "ja" mitsenden
-    $("einverstandenField").value = "ja";
+      summaryField.value = buildSummary();
 
-    const fd = new FormData();
-    fd.append("email", emailValue);
-    fd.append("message", messageValue);
-    fd.append("einverstanden", "ja");
-    fd.append("_subject", subjectValue);
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      body: fd,
-      headers: { "Accept": "application/json" }
+      // Flag für Reset + Popup
+      sessionStorage.setItem("fp_success", "1");
     });
 
-    if (!res.ok) {
-      let text = "Beim Senden ist ein Fehler aufgetreten. Bitte versuche es nochmals.";
-      try {
-        const data = await res.json();
-        if (data && data.errors && data.errors.length) {
-          text = data.errors.map(e => e.message).join("\n");
-        }
-      } catch (_) {}
-      throw new Error(text);
-    }
-  }
-
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    // 1) mindestens 1 Angebot
-    if (!hasAtLeastOneOffer()) {
-      alert("Bitte mindestens ein Angebot auswählen.");
-      return;
-    }
-
-    // 2) Einverständnis
-    const consent = $("consent");
-    if (consent && !consent.checked) {
-      alert("Bitte bestätige die Einverständniserklärung.");
-      return;
-    }
-
-    // 3) Browser-Validierung (Telefon-Pattern, required, email, etc.)
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    // 4) Senden (nur email + message + einverstanden)
-    try {
-      // Button sperren während Sendung
-      const btn = form.querySelector('button[type="submit"]');
-      if (btn) {
-        btn.disabled = true;
-        btn.dataset.oldText = btn.textContent;
-        btn.textContent = "Senden ...";
+    // Zurück von Formspree → Formular leeren + Popup anzeigen
+    window.addEventListener("pageshow", () => {
+      const success = sessionStorage.getItem("fp_success") === "1";
+      if (success) {
+        form.reset();
+        if (summaryField) summaryField.value = "";
+        consentField.value = "";
+        sessionStorage.removeItem("fp_success");
+        showSuccessPopup();
       }
+    });
 
-      await submitToFormspreeOnlyEmailAndMessage();
-
-      // Formular leeren
-      form.reset();
-      $("einverstandenField").value = "";
-
-      // Popup anzeigen
-      showSuccessPopup();
-
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = btn.dataset.oldText || "Senden";
-      }
-
-    } catch (err) {
-      alert(err.message || "Beim Senden ist ein Fehler aufgetreten.");
-      const btn = form.querySelector('button[type="submit"]');
-      if (btn) {
-        btn.disabled = false;
-        btn.textContent = btn.dataset.oldText || "Senden";
-      }
+    function showSuccessPopup() {
+      document.getElementById("fpSuccessModal").classList.add("active");
     }
-  });
 
-  // Popup Funktionen (müssen mit deinem Modal-HTML übereinstimmen)
-  function showSuccessPopup() {
-    const modal = document.getElementById("fpSuccessModal");
-    if (modal) modal.classList.add("active");
-  }
-
-  // Damit onclick="closeSuccessPopup()" weiterhin klappt
-  window.closeSuccessPopup = function() {
-    const modal = document.getElementById("fpSuccessModal");
-    if (modal) modal.classList.remove("active");
-  };
-</script>
+    function closeSuccessPopup() {
+      document.getElementById("fpSuccessModal").classList.remove("active");
+    }
+  </script>
 </body>
 
 </html>
