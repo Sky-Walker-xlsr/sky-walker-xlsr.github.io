@@ -262,3 +262,61 @@
     grid-template-columns: 1fr auto;
   }
 }
+
+/* Offers: Checkbox UI rechts */
+.fp-choice{
+  cursor: pointer;
+  user-select: none;
+}
+
+.fp-choice input[type="checkbox"]{
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fp-choice-ui{
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 2px solid rgba(62,58,54,.35);
+  display: inline-block;
+  position: relative;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.fp-choice input[type="checkbox"]:checked + .fp-choice-ui{
+  border-color: var(--brand);
+  background: rgba(214,40,40,.10);
+}
+
+.fp-choice input[type="checkbox"]:checked + .fp-choice-ui::after{
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--brand);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.fp-choice:focus-within{
+  outline: 2px solid rgba(214,40,40,.25);
+  outline-offset: 2px;
+}
+
+.fp-offer-meta{
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 4px;
+  letter-spacing: .2px;
+}
+
+.fp-offer-text{
+  display: flex;
+  flex-direction: column;
+}
+

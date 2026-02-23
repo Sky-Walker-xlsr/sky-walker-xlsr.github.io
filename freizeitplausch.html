@@ -81,56 +81,76 @@
           <h2 class="fp-title">Freizeitplausch Anmeldung</h2>
 
           <section class="fp-section">
-            <h3 class="fp-section-title">Angebote (genau 1)</h3>
+            <h3 class="fp-section-title">Angebote (mindestens 1)</h3>
 
             <div class="fp-offers">
-              <label class="fp-offer fp-radio">
+
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">1 – Turnen</div>
+                  <div class="fp-offer-meta">
+                    KiGa–1.Kl. · Di. · 07.04.2026 · 8.– (10.–)
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="1 – Turnen" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="1 – Turnen">
+                <span class="fp-choice-ui"></span>
               </label>
 
-              <label class="fp-offer fp-radio">
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">2 – Adventure</div>
+                  <div class="fp-offer-meta">
+                    ab 3.Kl. · Di. · 07.04.2026 · 22.– (24.–)
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="2 – Adventure" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="2 – Adventure">
+                <span class="fp-choice-ui"></span>
               </label>
 
-              <label class="fp-offer fp-radio">
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">3 – Falkner</div>
+                  <div class="fp-offer-meta">
+                    ab 1.Kl. · Fr. · 10.04.2026 · 12.– (14.–)
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="3 – Falkner" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="3 – Falkner">
+                <span class="fp-choice-ui"></span>
               </label>
 
-              <label class="fp-offer fp-radio">
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">4 – Ruckli</div>
+                  <div class="fp-offer-meta">
+                    KiGa–2.Kl. · Di. · 14.04.2026 · gratis
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="4 – Ruckli" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="4 – Ruckli">
+                <span class="fp-choice-ui"></span>
               </label>
 
-              <label class="fp-offer fp-radio">
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">5 – Lettering</div>
+                  <div class="fp-offer-meta">
+                    ab 3.Kl. · Do. · 16.04.2026 · 20.– (22.–)
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="5 – Lettering" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="5 – Lettering">
+                <span class="fp-choice-ui"></span>
               </label>
 
-              <label class="fp-offer fp-radio">
+              <label class="fp-offer fp-choice">
                 <div class="fp-offer-text">
                   <div class="fp-offer-name">6 – Dinos</div>
+                  <div class="fp-offer-meta">
+                    KiGa–2.Kl. · Fr. · 17.04.2026 · 16.– (18.–)
+                  </div>
                 </div>
-                <input type="radio" name="angebot" value="6 – Dinos" required>
-                <span class="fp-radio-ui" aria-hidden="true"></span>
+                <input type="checkbox" name="angebote[]" value="6 – Dinos">
+                <span class="fp-choice-ui"></span>
               </label>
+
             </div>
           </section>
 
@@ -163,17 +183,17 @@
           </section>
 
           <section class="fp-section">
-            <h3 class="fp-section-title">Kind (genau 1 pro Anmeldung)</h3>
+            <h3 class="fp-section-title">Kind</h3>
 
             <div class="fp-row fp-row-2">
               <label class="fp-field">
-                <span class="fp-label">Name + Vorname</span>
-                <input type="text" name="kind_name" required autocomplete="name">
+                <span class="fp-label">Name Kind</span>
+                <input type="text" name="kind_name" required placeholder="Vorname Nachname" autocomplete="name">
               </label>
 
               <label class="fp-field">
                 <span class="fp-label">Klasse</span>
-                <input type="text" name="kind_klasse" required>
+                <input type="text" name="kind_klasse" required placeholder="Kg1, P1a">
               </label>
             </div>
           </section>
@@ -184,12 +204,13 @@
             <div class="fp-row fp-row-2">
               <label class="fp-field">
                 <span class="fp-label">Adresse</span>
-                <input type="text" name="adresse" required autocomplete="street-address">
+                <input type="text" name="adresse" required placeholder="Beispielstrasse 1 5614"
+                  autocomplete="street-address">
               </label>
 
               <label class="fp-field">
                 <span class="fp-label">Name Eltern</span>
-                <input type="text" name="name_eltern" required autocomplete="name">
+                <input type="text" name="name_eltern" required placeholder="Vorname Nachname" autocomplete="name">
               </label>
             </div>
 
@@ -212,7 +233,7 @@
 
           <input type="hidden" id="summary" name="message">
 
-          <button type="submit" class="fp-submit">Submit</button>
+          <button type="submit" class="fp-submit">Senden</button>
         </form>
 
         <div class="about-image">
@@ -279,12 +300,15 @@
 
   <!-- Script für Anmeldeformular -->
   <script>
+    const form = document.getElementById("freizeitplauschForm");
+    const summaryField = document.getElementById("summary");
+
     function buildSummary() {
       const lines = [];
 
-      const angebot = document.querySelector('input[name="angebot"]:checked')?.value || "—";
-      lines.push("Angebot:");
-      lines.push(`- ${angebot}`);
+      const angebote = [...document.querySelectorAll('input[name="angebote[]"]:checked')].map(x => x.value);
+      lines.push("Angebote:");
+      lines.push(angebote.length ? angebote.map(a => `- ${a}`).join("\n") : "- —");
 
       lines.push("");
       lines.push("Kind:");
@@ -308,9 +332,32 @@
       return lines.join("\n");
     }
 
-    document.getElementById("freizeitplauschForm").addEventListener("submit", (e) => {
-      // Radio hat required, Kind/Kontakt haben required, darum keine Extra-Checks nötig.
-      document.getElementById("summary").value = buildSummary();
+    function hasAtLeastOneOffer() {
+      return document.querySelectorAll('input[name="angebote[]"]:checked').length > 0;
+    }
+
+    form.addEventListener("submit", (e) => {
+      // mindestens 1 Angebot
+      if (!hasAtLeastOneOffer()) {
+        alert("Bitte mindestens ein Angebot auswählen.");
+        e.preventDefault();
+        return;
+      }
+
+      summaryField.value = buildSummary();
+
+      // Flag setzen, damit bei Zurück (Formspree Thank You -> Zurück) alles geleert wird
+      sessionStorage.setItem("fp_should_reset", "1");
+    });
+
+    // Wird ausgelöst beim normalen Laden und auch beim Zurück-Navigieren (BFCache)
+    window.addEventListener("pageshow", () => {
+      const shouldReset = sessionStorage.getItem("fp_should_reset") === "1";
+      if (shouldReset) {
+        form.reset();
+        if (summaryField) summaryField.value = "";
+        sessionStorage.removeItem("fp_should_reset");
+      }
     });
   </script>
 </body>
