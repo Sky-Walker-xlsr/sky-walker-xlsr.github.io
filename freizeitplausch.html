@@ -40,8 +40,8 @@
       </nav>
 
       <!-- Mobile Toggle -->
-      <button class="nav-toggle" id="navToggle" type="button"
-        aria-label="Menü öffnen" aria-controls="mobileOverlay" aria-expanded="false">
+      <button class="nav-toggle" id="navToggle" type="button" aria-label="Menü öffnen" aria-controls="mobileOverlay"
+        aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -75,11 +75,92 @@
         <p>Der Freizeitplausch findet wie gewohnt in den Frühlingsferien statt.</p>
         <p>Info und Anmeldung rechts.</p>
         <p>Zuständig ist <strong>Nicole Salm</strong>.</p>
+
+        <form id="freizeitplauschForm" action="https://formspree.io/f/mqedgbvk" method="POST">
+
+          <h2>Freizeitplausch Anmeldung</h2>
+
+          <h3>Angebote (mindestens 1)</h3>
+          <div class="angebot">
+            <div>1 – Turnen</div>
+            <button type="button" class="minus" data-target="angebot_1">-</button>
+            <input id="angebot_1" name="angebot_1" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_1">+</button>
+          </div>
+
+          <div class="angebot">
+            <div>2 – Adventure</div>
+            <button type="button" class="minus" data-target="angebot_2">-</button>
+            <input id="angebot_2" name="angebot_2" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_2">+</button>
+          </div>
+
+          <div class="angebot">
+            <div>3 – Falkner</div>
+            <button type="button" class="minus" data-target="angebot_3">-</button>
+            <input id="angebot_3" name="angebot_3" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_3">+</button>
+          </div>
+
+          <div class="angebot">
+            <div>4 – Ruckli</div>
+            <button type="button" class="minus" data-target="angebot_4">-</button>
+            <input id="angebot_4" name="angebot_4" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_4">+</button>
+          </div>
+
+          <div class="angebot">
+            <div>5 – Lettering</div>
+            <button type="button" class="minus" data-target="angebot_5">-</button>
+            <input id="angebot_5" name="angebot_5" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_5">+</button>
+          </div>
+
+          <div class="angebot">
+            <div>6 – Dinos</div>
+            <button type="button" class="minus" data-target="angebot_6">-</button>
+            <input id="angebot_6" name="angebot_6" type="number" value="0" min="0" readonly>
+            <button type="button" class="plus" data-target="angebot_6">+</button>
+          </div>
+
+          <hr>
+
+          <h3>Elterntaxi (freiwillig)</h3>
+          <label><input type="checkbox" name="elterntaxi" value="Angebot 2"> Angebot 2</label>
+          <label><input type="checkbox" name="elterntaxi" value="Angebot 3"> Angebot 3</label>
+          <label><input type="checkbox" name="elterntaxi" value="Angebot 6"> Angebot 6</label>
+          <label>Anzahl Plätze: <input type="number" name="taxi_plaetze" min="1"></label>
+
+          <hr>
+
+          <h3>Kinder (mindestens 1)</h3>
+          <div id="kinderWrapper">
+            <div class="kind">
+              <label>Name + Vorname Kind 1 <input type="text" name="kind_1_name" required></label>
+              <label>Klasse Kind 1 <input type="text" name="kind_1_klasse" required></label>
+            </div>
+          </div>
+          <button type="button" id="addKind">Weiteres Kind hinzufügen</button>
+
+          <hr>
+
+          <h3>Kontakt</h3>
+          <label>Adresse <input type="text" name="adresse" required></label>
+          <label>Name Eltern <input type="text" name="name_eltern" required></label>
+          <label>Telefon <input type="tel" name="telefon" required></label>
+          <label>E-Mail <input type="email" name="email" required></label>
+
+          <input type="hidden" id="summary" name="message">
+
+          <button type="submit">Anmelden</button>
+        </form>
+
         <div class="about-image">
           <img src="./images/freizeitplausch/logo-freizeitplausch.png" alt="Freizeitplausch Bild" />
         </div>
       </div>
     </section>
+
   </main>
 
   <!-- FOOTER -->
@@ -134,5 +215,70 @@
       });
     })();
   </script>
+
+  <script>
+    document.addEventListener("click", (e) => {
+      if (e.target.matches(".plus, .minus")) {
+        const id = e.target.getAttribute("data-target");
+        const input = document.getElementById(id);
+        let val = parseInt(input.value || "0", 10);
+
+        if (e.target.classList.contains("plus")) val += 1;
+        if (e.target.classList.contains("minus")) val = Math.max(0, val - 1);
+
+        input.value = val;
+      }
+    });
+
+    let kindIndex = 1;
+    document.getElementById("addKind").addEventListener("click", () => {
+      kindIndex += 1;
+
+      const wrapper = document.getElementById("kinderWrapper");
+      const div = document.createElement("div");
+      div.className = "kind";
+
+      div.innerHTML = `
+      <label>Name + Vorname Kind ${kindIndex} <input type="text" name="kind_${kindIndex}_name" required></label>
+      <label>Klasse Kind ${kindIndex} <input type="text" name="kind_${kindIndex}_klasse" required></label>
+    `;
+
+      wrapper.appendChild(div);
+    });
+
+    document.getElementById("freizeitplauschForm").addEventListener("submit", (e) => {
+      const angebotIds = ["angebot_1", "angebot_2", "angebot_3", "angebot_4", "angebot_5", "angebot_6"];
+      let total = 0;
+
+      angebotIds.forEach(id => {
+        total += parseInt(document.getElementById(id).value || "0", 10);
+      });
+
+      if (total < 1) {
+        alert("Bitte mindestens ein Angebot auswählen.");
+        e.preventDefault();
+        return;
+      }
+
+      const lines = [];
+      lines.push("Angebote:");
+      angebotIds.forEach((id, idx) => {
+        const v = parseInt(document.getElementById(id).value || "0", 10);
+        if (v > 0) lines.push(`- Angebot ${idx + 1}: ${v}`);
+      });
+
+      lines.push("");
+      lines.push("Kinder:");
+      const nameInputs = [...document.querySelectorAll('input[name^="kind_"][name$="_name"]')];
+      nameInputs.forEach(inp => {
+        const nummer = inp.name.match(/^kind_(\d+)_name$/)?.[1];
+        const klasse = document.querySelector(`input[name="kind_${nummer}_klasse"]`)?.value || "";
+        if (inp.value.trim()) lines.push(`- ${inp.value.trim()} (Klasse: ${klasse.trim()})`);
+      });
+
+      document.getElementById("summary").value = lines.join("\n");
+    });
+  </script>
 </body>
+
 </html>

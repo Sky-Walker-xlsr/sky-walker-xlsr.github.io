@@ -37,3 +37,200 @@
   border-radius: var(--radius);
   object-fit: cover;    /* schneidet Überflüssiges ab */
 }
+
+
+/* ===== Grundlayout ===== */
+
+#freizeitplauschForm {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 30px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+  font-family: Arial, Helvetica, sans-serif;
+  color: #222;
+  line-height: 1.4;
+}
+
+#freizeitplauschForm h2 {
+  margin-bottom: 25px;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+#freizeitplauschForm h3 {
+  margin-top: 35px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 6px;
+}
+
+/* ===== Angebote ===== */
+
+.angebot {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.angebot:last-child {
+  border-bottom: none;
+}
+
+.angebot > div:first-child {
+  font-weight: 500;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Counter Buttons */
+
+.counter button,
+.plus,
+.minus {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.counter button:hover,
+.plus:hover,
+.minus:hover {
+  background: #e8e8e8;
+  border-color: #999;
+}
+
+.counter input {
+  width: 50px;
+  height: 34px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fafafa;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ===== Block Layout ===== */
+
+.block {
+  margin-top: 20px;
+}
+
+.block label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+/* ===== Checkbox Bereich ===== */
+
+input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+/* ===== Kinderbereich ===== */
+
+.kind {
+  padding: 12px 15px;
+  background: #f9f9f9;
+  border: 1px solid #e2e2e2;
+  border-radius: 6px;
+  margin-bottom: 15px;
+}
+
+#addKind {
+  margin-top: 10px;
+  background: #ffffff;
+  border: 1px solid #999;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+#addKind:hover {
+  background: #f0f0f0;
+}
+
+/* ===== Inputs ===== */
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px 10px;
+  margin-top: 4px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Submit Button ===== */
+
+button[type="submit"] {
+  margin-top: 30px;
+  padding: 12px 20px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+button[type="submit"]:hover {
+  background: #000;
+}
+
+/* ===== Trennlinien ===== */
+
+hr {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #ddd;
+}
+
+/* ===== Responsive ===== */
+
+@media (max-width: 600px) {
+
+  #freizeitplauschForm {
+    padding: 20px;
+  }
+
+  .angebot {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .counter {
+    justify-content: flex-start;
+  }
+
+}
