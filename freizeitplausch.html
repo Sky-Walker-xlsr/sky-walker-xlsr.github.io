@@ -71,10 +71,20 @@
   <main>
     <section class="section ueber-uns">
       <div class="container">
-        <h1>Freizeitplausch</h1>
-        <p>Der Freizeitplausch findet wie gewohnt in den Frühlingsferien statt.</p>
-        <p>Info und Anmeldung rechts.</p>
-        <p>Zuständig ist <strong>Nicole Salm</strong>.</p>
+        <h1>Anmeldung Freizeitplausch</h1>
+
+        <p>Der Freizeitplausch findet in den Frühlingsferien statt und bietet Kindern ein abwechslungsreiches Programm
+          mit insgesamt sechs spannenden Angeboten.
+          Alle Details zu den einzelnen Aktivitäten, Zeiten und Kosten findest du im folgenden Flyer (Link
+          einfügen).<br />
+          Unten findest du das Anmeldeformular. Pro Kind können bis zu sechs Angebote ausgewählt werden. Bitte beachte
+          jedoch, dass jedes Kind einzeln angemeldet werden muss – für jedes Kind ist ein separates Formular
+          auszufüllen.<br />
+          Wir freuen uns sehr über freiwillige Unterstützung beim Elterntaxi für die Angebote 2, 3 und 6. Wenn du dich
+          dafür zur Verfügung stellen kannst, sind wir dir sehr dankbar.<br />
+          Bitte beachte bei der Anmeldung die jeweilige Klassenregelung der einzelnen Angebote.<br />
+          Vielen Dank fürs Mitmachen – wir freuen uns auf einen tollen Freizeitplausch!</p>
+
 
         <form id="freizeitplauschForm" action="https://formspree.io/f/mqedgbvk" method="POST" class="fp-form">
 
@@ -233,14 +243,42 @@
 
           <input type="hidden" id="summary" name="message">
 
-          <button type="submit" class="fp-submit">Senden</button>
-        </form>
+          <div class="fp-consent">
+            <label class="fp-check fp-consent-check">
+              <input type="checkbox" id="consent" required>
+              <span>
+                Ich bin einverstanden mit der Betreuung der Verantwortlichen Person der Angebote
+                (Temporär - dieser Text wird noch überarbeitet)
+              </span>
+            </label>
 
-        <div class="about-image">
-          <img src="./images/freizeitplausch/logo-freizeitplausch.png" alt="Freizeitplausch Bild" />
-        </div>
+            <!-- Wird nur gesetzt wenn consent aktiv -->
+            <input type="hidden" name="einverstanden" id="einverstandenField" value="">
+          </div>
+
+          <button type="submit" class="fp-submit">Senden</button>
+
+          <div class="about-image">
+            <img src="./images/freizeitplausch/logo-freizeitplausch.png" alt="Freizeitplausch Bild" />
+          </div>
       </div>
     </section>
+
+    <div id="fpSuccessModal" class="fp-modal">
+      <div class="fp-modal-content">
+        <h3>Anmeldung erfolgreich versendet</h3>
+        <p>
+          Vielen Dank für deine Anmeldung zum Freizeitplausch.
+          Das Formular wurde erfolgreich an uns übermittelt.
+          Wir melden uns spätestens innerhalb von fünf Arbeitstagen bei dir.
+        </p>
+        <button onclick="closeSuccessPopup()" class="fp-modal-close">
+          Schliessen
+        </button>
+      </div>
+    </div>
+
+    <p>Zuständig ist <strong>Nicole Salm</strong>.</p>
 
   </main>
 
@@ -302,6 +340,8 @@
   <script>
     const form = document.getElementById("freizeitplauschForm");
     const summaryField = document.getElementById("summary");
+    const consentCheckbox = document.getElementById("consent");
+    const consentField = document.getElementById("einverstandenField");
 
     function buildSummary() {
       const lines = [];
@@ -337,28 +377,47 @@
     }
 
     form.addEventListener("submit", (e) => {
-      // mindestens 1 Angebot
+
       if (!hasAtLeastOneOffer()) {
         alert("Bitte mindestens ein Angebot auswählen.");
         e.preventDefault();
         return;
       }
 
+      if (!consentCheckbox.checked) {
+        alert("Bitte bestätige die Einverständniserklärung.");
+        e.preventDefault();
+        return;
+      }
+
+      // Einverständnis korrekt an Formspree senden
+      consentField.value = "ja";
+
       summaryField.value = buildSummary();
 
-      // Flag setzen, damit bei Zurück (Formspree Thank You -> Zurück) alles geleert wird
-      sessionStorage.setItem("fp_should_reset", "1");
+      // Flag für Reset + Popup
+      sessionStorage.setItem("fp_success", "1");
     });
 
-    // Wird ausgelöst beim normalen Laden und auch beim Zurück-Navigieren (BFCache)
+    // Zurück von Formspree → Formular leeren + Popup anzeigen
     window.addEventListener("pageshow", () => {
-      const shouldReset = sessionStorage.getItem("fp_should_reset") === "1";
-      if (shouldReset) {
+      const success = sessionStorage.getItem("fp_success") === "1";
+      if (success) {
         form.reset();
         if (summaryField) summaryField.value = "";
-        sessionStorage.removeItem("fp_should_reset");
+        consentField.value = "";
+        sessionStorage.removeItem("fp_success");
+        showSuccessPopup();
       }
     });
+
+    function showSuccessPopup() {
+      document.getElementById("fpSuccessModal").classList.add("active");
+    }
+
+    function closeSuccessPopup() {
+      document.getElementById("fpSuccessModal").classList.remove("active");
+    }
   </script>
 </body>
 
