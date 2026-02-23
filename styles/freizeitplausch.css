@@ -39,198 +39,251 @@
 }
 
 
-/* ===== Grundlayout ===== */
 
-#freizeitplauschForm {
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 30px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
-  font-family: Arial, Helvetica, sans-serif;
-  color: #222;
-  line-height: 1.4;
+/* ===== CSS für Anmeldeformular ===== */
+
+/* Freizeitplausch – Modern Minimal Form */
+
+:root{
+  --bg: #0b0c10;
+  --card: #0f1117;
+  --text: #e7e7e7;
+  --muted: rgba(231,231,231,.65);
+  --line: rgba(231,231,231,.22);
+  --line2: rgba(231,231,231,.12);
+  --accent: #27d17c;
+  --accent2: #1fb86c;
+  --danger: #ff5c5c;
 }
 
-#freizeitplauschForm h2 {
-  margin-bottom: 25px;
-  font-size: 26px;
-  font-weight: 600;
+body{
+  margin: 0;
+  background: radial-gradient(1200px 600px at 30% -10%, rgba(39,209,124,.18), transparent 55%),
+              radial-gradient(900px 500px at 90% 10%, rgba(39,209,124,.10), transparent 55%),
+              var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-#freizeitplauschForm h3 {
-  margin-top: 35px;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: 600;
-  border-bottom: 1px solid #ddd;
-  padding-bottom: 6px;
+.fp-form{
+  width: min(880px, calc(100% - 32px));
+  margin: 48px auto;
+  padding: 34px 34px 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  backdrop-filter: blur(10px);
 }
 
-/* ===== Angebote ===== */
+.fp-title{
+  margin: 0 0 26px;
+  text-align: center;
+  font-size: 28px;
+  letter-spacing: .4px;
+  font-weight: 650;
+}
 
-.angebot {
+.fp-section{
+  padding: 18px 0 22px;
+  border-top: 1px solid var(--line2);
+}
+
+.fp-section:first-of-type{
+  border-top: none;
+  padding-top: 0;
+}
+
+.fp-section-title{
+  margin: 0 0 14px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
+}
+
+/* Offers list */
+.fp-offers{
+  display: grid;
+  gap: 10px;
+}
+
+.fp-offer{
   display: grid;
   grid-template-columns: 1fr auto;
   align-items: center;
-  padding: 12px 0;
-  border-bottom: 1px solid #eee;
+  gap: 14px;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--line2);
 }
 
-.angebot:last-child {
+.fp-offer:last-child{
   border-bottom: none;
 }
 
-.angebot > div:first-child {
-  font-weight: 500;
+.fp-offer-name{
+  font-size: 15px;
+  font-weight: 560;
+  color: rgba(231,231,231,.92);
 }
 
-.counter {
-  display: flex;
+/* Counter */
+.fp-counter{
+  display: grid;
+  grid-auto-flow: column;
   align-items: center;
+  gap: 10px;
+}
+
+.fp-counter input{
+  width: 64px;
+  text-align: center;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 8px 0 6px;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+}
+
+.fp-btn{
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform .08s ease, background .15s ease, border-color .15s ease;
+}
+
+.fp-btn:hover{
+  background: rgba(255,255,255,.07);
+  border-color: rgba(255,255,255,.20);
+}
+
+.fp-btn:active{
+  transform: translateY(1px);
+}
+
+/* Rows & fields */
+.fp-row{
+  display: grid;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.fp-row-2{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fp-row-3{
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.fp-field{
+  display: grid;
   gap: 8px;
 }
 
-/* Counter Buttons */
-
-.counter button,
-.plus,
-.minus {
-  width: 34px;
-  height: 34px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  background: #f5f5f5;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
+.fp-label{
+  font-size: 12px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 650;
 }
 
-.counter button:hover,
-.plus:hover,
-.minus:hover {
-  background: #e8e8e8;
-  border-color: #999;
-}
-
-.counter input {
-  width: 50px;
-  height: 34px;
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fafafa;
+.fp-field input{
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 2px 8px;
+  color: var(--text);
   font-size: 15px;
-  font-weight: 500;
-}
-
-/* ===== Block Layout ===== */
-
-.block {
-  margin-top: 20px;
-}
-
-.block label {
-  display: block;
-  margin-bottom: 12px;
-  font-size: 14px;
-}
-
-/* ===== Checkbox Bereich ===== */
-
-input[type="checkbox"] {
-  margin-right: 8px;
-}
-
-/* ===== Kinderbereich ===== */
-
-.kind {
-  padding: 12px 15px;
-  background: #f9f9f9;
-  border: 1px solid #e2e2e2;
-  border-radius: 6px;
-  margin-bottom: 15px;
-}
-
-#addKind {
-  margin-top: 10px;
-  background: #ffffff;
-  border: 1px solid #999;
-  padding: 8px 14px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-#addKind:hover {
-  background: #f0f0f0;
-}
-
-/* ===== Inputs ===== */
-
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="number"] {
-  width: 100%;
-  padding: 8px 10px;
-  margin-top: 4px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 14px;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-  box-sizing: border-box;
-}
-
-input:focus {
   outline: none;
-  border-color: #666;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.08);
+  transition: border-color .15s ease;
 }
 
-/* ===== Submit Button ===== */
+.fp-field input::placeholder{
+  color: rgba(231,231,231,.35);
+}
 
-button[type="submit"] {
-  margin-top: 30px;
-  padding: 12px 20px;
-  background: #222;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-size: 15px;
+.fp-field input:focus{
+  border-bottom-color: rgba(39,209,124,.75);
+}
+
+/* Checkboxes */
+.fp-check{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
   cursor: pointer;
-  transition: background 0.2s ease;
+  user-select: none;
 }
 
-button[type="submit"]:hover {
-  background: #000;
+.fp-check input{
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
 }
 
-/* ===== Trennlinien ===== */
+.fp-check span{
+  font-size: 14px;
+  color: rgba(231,231,231,.9);
+}
 
-hr {
-  margin: 30px 0;
+/* Submit button */
+.fp-submit{
+  margin: 22px auto 0;
+  display: block;
+  min-width: 190px;
+  padding: 12px 22px;
   border: none;
-  border-top: 1px solid #ddd;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), var(--accent2));
+  color: #08110c;
+  font-weight: 750;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 14px 35px rgba(39,209,124,.25);
+  transition: transform .08s ease, filter .2s ease;
 }
 
-/* ===== Responsive ===== */
+.fp-submit:hover{
+  filter: brightness(1.05);
+}
 
-@media (max-width: 600px) {
+.fp-submit:active{
+  transform: translateY(1px);
+}
 
-  #freizeitplauschForm {
-    padding: 20px;
+/* Mobile */
+@media (max-width: 720px){
+  .fp-form{
+    padding: 24px 18px 22px;
   }
 
-  .angebot {
+  .fp-row-2,
+  .fp-row-3{
     grid-template-columns: 1fr;
-    gap: 8px;
   }
 
-  .counter {
-    justify-content: flex-start;
+  .fp-offer{
+    grid-template-columns: 1fr;
+    align-items: start;
   }
 
+  .fp-counter{
+    justify-content: start;
+  }
 }
