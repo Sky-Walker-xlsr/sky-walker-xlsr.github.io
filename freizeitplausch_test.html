@@ -362,12 +362,17 @@
       lines.push(`- E-Mail: ${document.querySelector('input[name="email"]').value}`);
 
       const taxiChecked = [...document.querySelectorAll('input[name="elterntaxi"]:checked')].map(x => x.value);
-      const taxiPlaetze = document.querySelector('input[name="taxi_plaetze"]').value;
+      const taxiPlaetzeEl = document.querySelector('input[name="taxi_plaetze"]');
+      const taxiPlaetze = taxiPlaetzeEl ? taxiPlaetzeEl.value : "";
 
       lines.push("");
       lines.push("Elterntaxi (freiwillig):");
       lines.push(`- Angebote: ${taxiChecked.length ? taxiChecked.join(", ") : "—"}`);
       lines.push(`- Plätze: ${taxiPlaetze ? taxiPlaetze : "—"}`);
+
+      lines.push("");
+      lines.push("Einverstanden:");
+      lines.push("- ja");
 
       return lines.join("\n");
     }
@@ -376,48 +381,94 @@
       return document.querySelectorAll('input[name="angebote[]"]:checked').length > 0;
     }
 
-    form.addEventListener("submit", (e) => {
+    function showSuccessPopup() {
+      const modal = document.getElementById("fpSuccessModal");
+      if (modal) modal.classList.add("active");
+    }
+
+    // Damit dein onclick="closeSuccessPopup()" weiterhin klappt
+    window.closeSuccessPopup = function () {
+      const modal = document.getElementById("fpSuccessModal");
+      if (modal) modal.classList.remove("active");
+    };
+
+    async function sendOnlyEmailAndMessage() {
+      const endpoint = form.action;
+
+      const emailValue = document.querySelector('input[name="email"]').value.trim();
+      const messageValue = buildSummary();
+
+      // Einverständnis als eigenes Feld (optional zusätzlich zur message)
+      consentField.value = "ja";
+      summaryField.value = messageValue;
+
+      const fd = new FormData();
+      fd.append("email", emailValue);
+      fd.append("message", messageValue);
+      fd.append("einverstanden", "ja");
+      fd.append("_subject", "Neue Anmeldung Freizeitplausch");
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        body: fd,
+        headers: { "Accept": "application/json" }
+      });
+
+      if (!res.ok) {
+        let text = "Beim Senden ist ein Fehler aufgetreten. Bitte versuche es nochmals.";
+        try {
+          const data = await res.json();
+          if (data?.errors?.length) text = data.errors.map(e => e.message).join("\n");
+        } catch (_) { }
+        throw new Error(text);
+      }
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      // Browser-Validierung (required, pattern, type=email, etc.)
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
 
       if (!hasAtLeastOneOffer()) {
         alert("Bitte mindestens ein Angebot auswählen.");
-        e.preventDefault();
         return;
       }
 
       if (!consentCheckbox.checked) {
         alert("Bitte bestätige die Einverständniserklärung.");
-        e.preventDefault();
         return;
       }
 
-      // Einverständnis korrekt an Formspree senden
-      consentField.value = "ja";
+      const btn = form.querySelector('button[type="submit"]');
+      const oldText = btn ? btn.textContent : "";
 
-      summaryField.value = buildSummary();
+      try {
+        if (btn) {
+          btn.disabled = true;
+          btn.textContent = "Senden ...";
+        }
 
-      // Flag für Reset + Popup
-      sessionStorage.setItem("fp_success", "1");
-    });
+        await sendOnlyEmailAndMessage();
 
-    // Zurück von Formspree → Formular leeren + Popup anzeigen
-    window.addEventListener("pageshow", () => {
-      const success = sessionStorage.getItem("fp_success") === "1";
-      if (success) {
         form.reset();
-        if (summaryField) summaryField.value = "";
+        summaryField.value = "";
         consentField.value = "";
-        sessionStorage.removeItem("fp_success");
+
         showSuccessPopup();
+
+      } catch (err) {
+        alert(err.message || "Beim Senden ist ein Fehler aufgetreten.");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = oldText || "Senden";
+        }
       }
     });
-
-    function showSuccessPopup() {
-      document.getElementById("fpSuccessModal").classList.add("active");
-    }
-
-    function closeSuccessPopup() {
-      document.getElementById("fpSuccessModal").classList.remove("active");
-    }
   </script>
 </body>
 
