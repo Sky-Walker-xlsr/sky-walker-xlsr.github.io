@@ -184,46 +184,37 @@
 }
 
 /* Banner: Freizeitplausch Anmeldung */
-.fp-banner{
-  display: block;
+/* Wrapper damit es schön zentriert ist */
+.fp-banner-wrapper {
   width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Der eigentliche Banner */
+.fp-banner {
+  display: block;
+  width: 90%;
+  max-width: 1200px;
+
+  background-color: rgba(255, 0, 0, 0.6) !important; /* ROT mit 60% Transparenz */
+  color: #ffffff !important; /* Schrift weiss */
+
   text-align: center;
-  text-decoration: none;
+  padding: 14px 20px;
 
-  background: rgba(220, 0, 0, 0.4); /* rot mit 60% Transparenz */
-  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 600;
 
-  padding: 12px 16px;
-  margin: 0 0 14px 0;
+  border-radius: 10px;
+  text-decoration: none !important;
 
-  font-weight: 700;
-  line-height: 1.2;
-
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 12px;
-
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-
-  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+  transition: background-color 0.2s ease, transform 0.15s ease;
 }
 
-.fp-banner:hover{
-  background: rgba(220, 0, 0, 0.55);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-1px);
-}
-
-.fp-banner:active{
-  transform: translateY(0px);
-}
-
-.fp-banner:focus-visible{
-  outline: 3px solid rgba(255, 255, 255, 0.7);
-  outline-offset: 3px;
-}
-
-.fp-banner-link{
-  text-decoration: underline;
-  text-underline-offset: 3px;
+/* Hover Effekt */
+.fp-banner:hover {
+  background-color: rgba(255, 0, 0, 0.8) !important;
+  transform: translateY(-2px);
 }
