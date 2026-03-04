@@ -185,13 +185,14 @@
 
 /* Banner: Freizeitplausch Anmeldung */
 .fp-banner {
-  display: block;
   width: 100%;
-
   background: var(--brand);
-  color: white;
-
   text-align: center;
+}
+
+.fp-banner a {
+  display: block;
+  color: white;
   padding: 14px 0;
 
   font-size: 1.2rem;
