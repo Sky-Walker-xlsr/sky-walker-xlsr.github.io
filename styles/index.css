@@ -188,7 +188,7 @@
   display: block;
   width: 100%;
 
-
+  background: var(--brand);
   color: white;
 
   text-align: center;
