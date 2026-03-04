@@ -184,37 +184,18 @@
 }
 
 /* Banner: Freizeitplausch Anmeldung */
-/* Wrapper damit es schön zentriert ist */
-.fp-banner-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 20px 0;
-}
-
-/* Der eigentliche Banner */
 .fp-banner {
   display: block;
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
 
-  background-color: rgba(255, 0, 0, 0.6) !important; /* ROT mit 60% Transparenz */
-  color: #ffffff !important; /* Schrift weiss */
+  background: color-mix(in srgb, var(--brand) 60%, transparent);
+  color: white;
 
   text-align: center;
-  padding: 14px 20px;
+  padding: 14px 0;
 
   font-size: 1.2rem;
   font-weight: 600;
 
-  border-radius: 10px;
-  text-decoration: none !important;
-
-  transition: background-color 0.2s ease, transform 0.15s ease;
-}
-
-/* Hover Effekt */
-.fp-banner:hover {
-  background-color: rgba(255, 0, 0, 0.8) !important;
-  transform: translateY(-2px);
+  text-decoration: none;
 }
