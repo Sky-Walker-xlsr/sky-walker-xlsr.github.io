@@ -188,7 +188,7 @@
   display: block;
   width: 100%;
 
-  background: color-mix(in srgb, var(--brand) 60%, transparent);
+  background: color-mix(in srgb, var(--brand));
   color: white;
 
   text-align: center;
