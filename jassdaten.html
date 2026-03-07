@@ -108,6 +108,42 @@
   </footer>
 
   <script>
+    // Jahreszahl im Footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile Header Steuerung
+    (function () {
+      const btn = document.getElementById('navToggle');
+      const overlay = document.getElementById('mobileOverlay');
+      const closeBtn = document.getElementById('overlayClose');
+
+      function openNav() {
+        overlay.classList.add('open');
+        btn.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        overlay.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('no-scroll');
+      }
+      function closeNav() {
+        overlay.classList.remove('open');
+        btn.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        overlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('no-scroll');
+      }
+
+      btn.addEventListener('click', () =>
+        overlay.classList.contains('open') ? closeNav() : openNav()
+      );
+      closeBtn.addEventListener('click', closeNav);
+      overlay.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+      window.addEventListener('resize', () => {
+        if (window.matchMedia('(min-width:851px)').matches) closeNav();
+      });
+    })();
+
+    // script zur ansicht der daten
     const baseDates2026 = [
       { date: "08.01.26", note: "" },
       { date: "04.02.26", note: "" },
